@@ -20,8 +20,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.sina.weibo.sdk.utils.LogUtil;
 import com.wooi.vibox.R;
@@ -31,8 +33,8 @@ import com.wooi.vibox.demo.openapi.WBOpenAPIActivity;
 /**
  * 该类是整个 DEMO 程序的入口。
  *
- * @author SINA
- * @since 2013-09-29
+ * @author wooi
+ * @since 2015-8-21
  */
 public class MainActivity extends Activity {
 
@@ -45,7 +47,19 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         LogUtil.sIsLogEnable = true;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.showOverflowMenu();
+        toolbar.inflateMenu(R.menu.menu_main);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.action_settings:
+                        Toast.makeText(getApplicationContext(),"Setting",Toast.LENGTH_LONG).show();
+                        break;
+                }
+
+                return true;
+            }
+        });
         // 微博授权功能
         this.findViewById(R.id.feature_oauth).setOnClickListener(new OnClickListener() {
 

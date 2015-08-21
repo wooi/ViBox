@@ -2,8 +2,9 @@
 <resources>
 
     <style name="AppTheme" parent="AppBaseTheme" >
-        <item name="android:colorPrimaryDark">@color/deep_blue</item>
+        <item name="android:colorPrimaryDark">@color/blue</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+    s
     </style>
 </resources>
