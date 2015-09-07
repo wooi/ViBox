@@ -21,13 +21,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.sina.weibo.sdk.utils.LogUtil;
 import com.wooi.vibox.R;
+import com.wooi.vibox.demo.Util.HttpUtil;
 import com.wooi.vibox.demo.openapi.WBAuthActivity;
 import com.wooi.vibox.demo.openapi.WBOpenAPIActivity;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 /**
  * 该类是整个 DEMO 程序的入口。
@@ -35,8 +46,8 @@ import com.wooi.vibox.demo.openapi.WBOpenAPIActivity;
  * @author wooi
  * @since 2015-8-21
  */
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private Button button;
     /**
      * @see {@link Activity#onCreate}
      */
@@ -48,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_main);
         setSupportActionBar(toolbar);
-
+        button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(this);
     }
 
     @Override
@@ -68,5 +80,31 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button:
+                HashMap<String ,String> paramsMap = new HashMap<>();
+                paramsMap.put("access_token","2.00FLsKEC0JZ_wrb789018166ZPyBUC");
+                paramsMap.put("uid","1893962551");
+                RequestParams params = new RequestParams(paramsMap);
+                HttpUtil.get("https://api.weibo.com/2/users/show.json",params,new JsonHttpResponseHandler(){
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                        Log.i("TAG", response.toString());
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                        Log.i("TAG", errorResponse.toString());
+
+                    }
+                });
+                break;
+        }
     }
 }

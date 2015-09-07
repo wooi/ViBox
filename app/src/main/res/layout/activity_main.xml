@@ -13,13 +13,11 @@
        />
 
     <Button
-        android:id="@+id/feature_oauth"
+        android:id="@+id/button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginTop="20dp"
-        android:onClick="onOauth"
-        android:visibility="gone"
         android:text="@string/weibosdk_demo_feature_oauth" />
 
 
