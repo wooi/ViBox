@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:title="@string/hello_world"
-        android:background="@color/blue"></android.support.v7.widget.Toolbar>
+        android:background="@color/blue"
+       />
 
     <Button
         android:id="@+id/feature_oauth"
@@ -18,6 +19,7 @@
         android:layout_margin="10dp"
         android:layout_marginTop="20dp"
         android:onClick="onOauth"
+        android:visibility="gone"
         android:text="@string/weibosdk_demo_feature_oauth" />
 
 
@@ -26,6 +28,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:visibility="gone"
         android:text="@string/weibosdk_demo_feature_open_api" />
 
 

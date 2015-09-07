@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="AppBaseTheme" >
-        <item name="android:colorPrimaryDark">@color/blue</item>
-        <item name="windowActionBar">false</item>
+
+
+    <style name="AppBaseTheme." parent="Theme.AppCompat.NoActionBar">
+
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:colorPrimaryDark">@color/deep_blue</item>
+        <item name="colorPrimary">@color/blue</item>
         <item name="android:windowNoTitle">true</item>
-
-
+        <item name="windowActionBar">false</item>
     </style>
 </resources>

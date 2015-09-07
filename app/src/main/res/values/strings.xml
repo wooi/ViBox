@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ViBox</string>
 
-    <string name="hello_world">Hello world!!!!</string>
+    <string name="hello_world">ViBoxToolBar</string>
     <string name="action_settings">Settings</string>
     <string name="button">button</string>
 
@@ -152,4 +152,6 @@
     <string name="weibosdk_demo_launch_poi_page">POI页面</string>
     <string name="weibosdk_demo_launch_mblog_detail">查看微博正文</string>
     <string name="weibosdk_demo_launch_qrcode">扫描二维码界面</string>
+
+    <!--ViBox-->
 </resources>
