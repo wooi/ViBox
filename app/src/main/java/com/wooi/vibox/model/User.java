@@ -1,4 +1,4 @@
-package com.wooi.vibox.demo.Model;
+package com.wooi.vibox.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,63 +8,65 @@ import com.google.gson.annotations.SerializedName;
 public class User {
 
     /**
-     * id : 1802726235
-     * idstr : 1802726235
+     * id : 1773436304
+     * idstr : 1773436304
      * class : 1
-     * screen_name : 作家张大春
-     * name : 作家张大春
-     * province : 71
-     * city : 1
-     * location : 台湾 台北市
-     * description : 好故事、練说书、學书法、爱赋诗。 豆瓣个人小站：http://site.douban.com/106711/
-     * url : http://blog.sina.com.cn/zhangdachunblog
-     * profile_image_url : http://tp4.sinaimg.cn/1802726235/50/40029077387/1
-     * profile_url : sixiyouguo
-     * domain : sixiyouguo
+     * screen_name : 迷笛
+     * name : 迷笛
+     * province : 11
+     * city : 8
+     * location : 北京 海淀区
+     * description : 迷笛音乐节，迷笛品牌官方微博！
+     * url : http://www.midifestival.com/
+     * profile_image_url : http://tp1.sinaimg.cn/1773436304/50/5735164467/1
+     * cover_image : http://ww2.sinaimg.cn/crop.0.0.920.300/69b47d90jw1evtuzgf8wlj20pk08ctch.jpg
+     * cover_image_phone : http://ww1.sinaimg.cn/crop.0.0.0.0/69b47d90jw1evtvgmdqazj20ku0kudh9.jpg
+     * profile_url : midifestival
+     * domain : midifestival
      * weihao :
      * gender : m
-     * followers_count : 2318480
-     * friends_count : 341
-     * pagefriends_count : 0
-     * statuses_count : 2873
-     * favourites_count : 10
-     * created_at : Fri Aug 27 09:04:45 +0800 2010
+     * followers_count : 232538
+     * friends_count : 504
+     * pagefriends_count : 8
+     * statuses_count : 7521
+     * favourites_count : 415
+     * created_at : Thu Jul 29 18:06:42 +0800 2010
      * following : true
-     * allow_all_act_msg : false
+     * allow_all_act_msg : true
      * geo_enabled : true
      * verified : true
-     * verified_type : 0
+     * verified_type : 3
      * remark :
-     * ptype : 3
+     * ptype : 206
      * allow_all_comment : true
-     * avatar_large : http://tp4.sinaimg.cn/1802726235/180/40029077387/1
-     * avatar_hd : http://ww1.sinaimg.cn/crop.70.326.980.980.1024/6b736b5bgw1e6u7gcoxa6j20v719eqbj.jpg
-     * verified_reason : 作家
-     * verified_trade : 1101
+     * avatar_large : http://tp1.sinaimg.cn/1773436304/180/5735164467/1
+     * avatar_hd : http://ww3.sinaimg.cn/crop.0.0.750.750.1024/69b47d90jw8evb06bonomj20ku0kujrp.jpg
+     * verified_reason : 迷笛音乐节官方微博
+     * verified_trade :
      * verified_reason_url :
      * verified_source :
      * verified_source_url :
      * verified_state : 0
-     * verified_level : 1
+     * verified_level : 3
      * verified_reason_modified :
-     * verified_contact_name :
-     * verified_contact_email :
+     * verified_contact_name : 吕冉
+     * verified_contact_email : lvran@midifestival.com
      * verified_contact_mobile :
      * follow_me : false
      * online_status : 0
-     * bi_followers_count : 312
-     * lang : zh-tw
+     * bi_followers_count : 439
+     * lang : zh-cn
      * star : 0
-     * mbtype : 2
-     * mbrank : 4
+     * mbtype : 0
+     * mbrank : 0
      * block_word : 0
      * block_app : 0
      * credit_score : 80
      * user_ability : 0
-     * urank : 25
+     * urank : 28
      */
 
-    public int id;
+    public long id;
     public String idstr;
     @SerializedName("class")
     public int classX;
@@ -76,6 +78,8 @@ public class User {
     public String description;
     public String url;
     public String profile_image_url;
+    public String cover_image;
+    public String cover_image_phone;
     public String profile_url;
     public String domain;
     public String weihao;
@@ -118,13 +122,12 @@ public class User {
     public int block_app;
     public int credit_score;
     public int user_ability;
-    public int urank;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -206,6 +209,22 @@ public class User {
 
     public void setProfile_image_url(String profile_image_url) {
         this.profile_image_url = profile_image_url;
+    }
+
+    public String getCover_image() {
+        return cover_image;
+    }
+
+    public void setCover_image(String cover_image) {
+        this.cover_image = cover_image;
+    }
+
+    public String getCover_image_phone() {
+        return cover_image_phone;
+    }
+
+    public void setCover_image_phone(String cover_image_phone) {
+        this.cover_image_phone = cover_image_phone;
     }
 
     public String getProfile_url() {
@@ -542,13 +561,5 @@ public class User {
 
     public void setUser_ability(int user_ability) {
         this.user_ability = user_ability;
-    }
-
-    public int getUrank() {
-        return urank;
-    }
-
-    public void setUrank(int urank) {
-        this.urank = urank;
     }
 }

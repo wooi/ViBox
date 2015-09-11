@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wooi.vibox.demo.openapi;
+package com.wooi.vibox.openapi;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -32,8 +32,8 @@ import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.wooi.vibox.R;
-import com.wooi.vibox.demo.Token.AccessTokenKeeper;
-import com.wooi.vibox.demo.Token.Constants;
+import com.wooi.vibox.token.AccessTokenKeeper;
+import com.wooi.vibox.token.Constants;
 
 import java.text.SimpleDateFormat;
 

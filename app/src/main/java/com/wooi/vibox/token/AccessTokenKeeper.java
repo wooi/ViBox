@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wooi.vibox.demo.Token;
+package com.wooi.vibox.token;
 
 import android.content.Context;
 import android.content.SharedPreferences;

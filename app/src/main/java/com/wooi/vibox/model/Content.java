@@ -1,4 +1,4 @@
-package com.wooi.vibox.demo.Model;
+package com.wooi.vibox.model;
 
 /**
  * Created by Administrator on 2015/9/10.

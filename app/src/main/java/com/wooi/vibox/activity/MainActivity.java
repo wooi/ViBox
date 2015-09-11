@@ -25,20 +25,27 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sina.weibo.sdk.utils.LogUtil;
 import com.wooi.vibox.R;
-import com.wooi.vibox.demo.Util.Content;
-import com.wooi.vibox.demo.Util.HttpUtil;
-import com.wooi.vibox.demo.openapi.WBAuthActivity;
-import com.wooi.vibox.demo.openapi.WBOpenAPIActivity;
+import com.wooi.vibox.model.Status;
+import com.wooi.vibox.openapi.WBAuthActivity;
+import com.wooi.vibox.openapi.WBOpenAPIActivity;
+import com.wooi.vibox.util.Content;
+import com.wooi.vibox.util.GetJSONArray;
+import com.wooi.vibox.util.HttpUtil;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.HashMap;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,13 +57,15 @@ import butterknife.OnClick;
  * @author wooi
  * @since 2015-8-21
  */
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.button)
     Button button;
     @Bind(R.id.feature_open_api)
     Button featureOpenApi;
+    @Bind(R.id.weibotext)
+    TextView weibotext;
 
     /**
      * @see {@link Activity#onCreate}
@@ -70,7 +79,6 @@ public class MainActivity extends AppCompatActivity  {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_main);
         setSupportActionBar(toolbar);
-
     }
 
     @Override
@@ -93,42 +101,32 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     @OnClick(R.id.button)
-    public void button(){
+    public void button() {
         getFriendTimeLine();
     }
 
-    private void getUserInfo(){
-        HashMap<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("access_token", "2.00FLsKEC0JZ_wrb789018166ZPyBUC");
-        paramsMap.put("uid", "1893962551");
-        RequestParams params = new RequestParams(paramsMap);
-        HttpUtil.get("https://api.weibo.com/2/users/show.json", params, new JsonHttpResponseHandler() {
+
+    private void getFriendTimeLine() {
+        HttpUtil.get(Content.FRIEDNDURL, new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                Log.i("TAG", response.toString());
+                JSONArray responseArray = GetJSONArray.getStatuses(response);
+                Type listType = new TypeToken<ArrayList<Status>>() {}.getType();
+                ArrayList<Status> statusList= new Gson().fromJson(responseArray.toString(), listType);
+                weibotext.setText("length:" + statusList.size());
+
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                Log.i("TAG", errorResponse.toString());
+                Log.i(this.toString(), errorResponse.toString());
 
             }
         });
-    }
-    private void getFriendTimeLine(){
-        RequestParams params = new RequestParams();
-        params.put("access_token","2.00FLsKEC0JZ_wrb789018166ZPyBUC");
-        params.put("uid","1893962551");
-        HttpUtil.get(Content.FRIEDNDURL,params,new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                Log.i(this.toString(),response.toString());
-            }
-        });
-    }
 
+    }
 
 
 }

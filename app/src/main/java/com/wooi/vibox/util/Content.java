@@ -1,4 +1,4 @@
-package com.wooi.vibox.demo.Util;
+package com.wooi.vibox.util;
 
 /**
  * Created by Administrator on 2015/9/10.

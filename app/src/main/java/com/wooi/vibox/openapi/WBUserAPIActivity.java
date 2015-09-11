@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wooi.vibox.demo.openapi;
+package com.wooi.vibox.openapi;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -35,8 +35,8 @@ import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 import com.sina.weibo.sdk.openapi.models.User;
 import com.sina.weibo.sdk.utils.LogUtil;
 import com.wooi.vibox.R;
-import com.wooi.vibox.demo.Token.AccessTokenKeeper;
-import com.wooi.vibox.demo.Token.Constants;
+import com.wooi.vibox.token.AccessTokenKeeper;
+import com.wooi.vibox.token.Constants;
 
 /**
  * 该类主要演示了如何使用微博 OpenAPI 来获取以下内容：

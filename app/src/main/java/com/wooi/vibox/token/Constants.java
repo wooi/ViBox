@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wooi.vibox.demo.Token;
+package com.wooi.vibox.token;
 
 /**
  * 该类定义了微博授权时所需要的参数。
