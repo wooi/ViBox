@@ -154,4 +154,5 @@
     <string name="weibosdk_demo_launch_qrcode">扫描二维码界面</string>
 
     <!--ViBox-->
+    <string name="test">测试</string>
 </resources>

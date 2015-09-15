@@ -3,4 +3,7 @@
     <color name="deep_blue">#0D47A1</color>
     <color name="blue">#2196F3</color>
     <color name="black">#000000</color>
+
+    <color name="weibo_background">#FFF0F0F0</color>
+    <color name="weibo_content_text">#ff666666</color>
 </resources>

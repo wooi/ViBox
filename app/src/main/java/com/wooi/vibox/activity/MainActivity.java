@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -34,6 +35,7 @@ import com.loopj.android.http.RequestParams;
 import com.sina.weibo.sdk.utils.LogUtil;
 import com.wooi.vibox.R;
 import com.wooi.vibox.model.Status;
+import com.wooi.vibox.model.User;
 import com.wooi.vibox.openapi.WBAuthActivity;
 import com.wooi.vibox.openapi.WBOpenAPIActivity;
 import com.wooi.vibox.util.Content;
@@ -62,10 +64,17 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     @Bind(R.id.button)
     Button button;
-    @Bind(R.id.feature_open_api)
-    Button featureOpenApi;
-    @Bind(R.id.weibotext)
-    TextView weibotext;
+
+    @Bind(R.id.user_ib)
+    ImageButton userIb;
+    @Bind(R.id.user_tv)
+    TextView userTv;
+    @Bind(R.id.device_tv)
+    TextView deviceTv;
+    @Bind(R.id.time_tv)
+    TextView timeTv;
+    @Bind(R.id.content_tv)
+    TextView contentTv;
 
     /**
      * @see {@link Activity#onCreate}
@@ -112,10 +121,16 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 JSONArray responseArray = GetJSONArray.getStatuses(response);
-                Type listType = new TypeToken<ArrayList<Status>>() {}.getType();
-                ArrayList<Status> statusList= new Gson().fromJson(responseArray.toString(), listType);
-                weibotext.setText("length:" + statusList.size());
-
+                Type listType = new TypeToken<ArrayList<Status>>() {
+                }.getType();
+                ArrayList<Status> statusList = new Gson().fromJson(responseArray.toString(), listType);
+                Status firstStatus = statusList.get(0);
+                String creaded = firstStatus.getCreated_at();
+                String text = firstStatus.getText();
+                String userName = firstStatus.getUser().getName();
+                timeTv.setText(creaded);
+                contentTv.setText(text);
+                userTv.setText(userName);
             }
 
             @Override
@@ -127,6 +142,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
 }
