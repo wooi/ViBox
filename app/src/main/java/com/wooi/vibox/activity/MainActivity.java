@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -33,14 +34,17 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.utils.LogUtil;
 import com.wooi.vibox.R;
+import com.wooi.vibox.adapter.ImageGridAdapter;
 import com.wooi.vibox.model.Status;
 import com.wooi.vibox.openapi.WBAuthActivity;
 import com.wooi.vibox.openapi.WBOpenAPIActivity;
 import com.wooi.vibox.util.Content;
 import com.wooi.vibox.util.GetJSONArray;
 import com.wooi.vibox.util.HttpUtil;
+import com.wooi.vibox.util.ImageLoaderOptionsUtil;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -81,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
     TextView retweetedCommentsRepostCount;
     @Bind(R.id.comments_repost_count)
     TextView commentsRepostCount;
+    @Bind(R.id.content_gv)
+    GridView contentGv;
+    @Bind(R.id.retweeted_content_gv)
+    GridView retweetedContentGv;
 
 
     /**
@@ -141,10 +149,18 @@ public class MainActivity extends AppCompatActivity {
                 userTv.setText(userName);
                 deviceTv.setText(device);
                 commentsRepostCount.setText(firstStatus.getReposts_count() + "条转发 & " + firstStatus.getComments_count() + "条回复");
+                String url = firstStatus.getUser().getProfile_image_url();
+                ImageLoader.getInstance().displayImage(url, userIb, ImageLoaderOptionsUtil.getWholeOptions());
+                if (firstStatus.getPic_urls() != null) {
+                    ImageGridAdapter imageGridAdapter = new ImageGridAdapter(getApplicationContext(), firstStatus.getPic_urls());
+                    contentGv.setAdapter(imageGridAdapter);
+                }
                 if (firstStatus.getRetweeted_status() != null) {
-                    retweetedContentTv.setText("@" + firstStatus.getRetweeted_status().getUser().getName() + ":" + firstStatus.getRetweeted_status().getText());
+                    retweetedContentTv.setText("@" + firstStatus.getRetweeted_status().getUser().getName() + " : " + firstStatus.getRetweeted_status().getText());
                     retweetedCommentsRepostCount.setText(firstStatus.getRetweeted_status().getReposts_count() + "条转发 & " +
                             firstStatus.getRetweeted_status().getComments_count() + "条回复");
+                    ImageGridAdapter imageGridAdapter = new ImageGridAdapter(getApplicationContext(), firstStatus.getRetweeted_status().getPic_urls());
+                    retweetedContentGv.setAdapter(imageGridAdapter);
                 }
             }
 
@@ -162,5 +178,6 @@ public class MainActivity extends AppCompatActivity {
         String datas = String.valueOf(Html.fromHtml(deviceXml));
         return datas;
     }
+
 
 }
