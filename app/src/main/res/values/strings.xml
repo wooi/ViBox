@@ -155,4 +155,6 @@
 
     <!--ViBox-->
     <string name="test">测试</string>
+    <string name="repost_count"><![CDATA[条转发 &]]></string>
+    <string name="comments_count"> 条评论</string>
 </resources>

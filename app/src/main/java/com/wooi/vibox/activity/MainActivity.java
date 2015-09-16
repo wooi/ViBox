@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +36,6 @@ import com.loopj.android.http.RequestParams;
 import com.sina.weibo.sdk.utils.LogUtil;
 import com.wooi.vibox.R;
 import com.wooi.vibox.model.Status;
-import com.wooi.vibox.model.User;
 import com.wooi.vibox.openapi.WBAuthActivity;
 import com.wooi.vibox.openapi.WBOpenAPIActivity;
 import com.wooi.vibox.util.Content;
@@ -75,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
     TextView timeTv;
     @Bind(R.id.content_tv)
     TextView contentTv;
+    @Bind(R.id.retweeted_content_tv)
+    TextView retweetedContentTv;
+    @Bind(R.id.retweeted_comments_repost_count)
+    TextView retweetedCommentsRepostCount;
+    @Bind(R.id.comments_repost_count)
+    TextView commentsRepostCount;
+
 
     /**
      * @see {@link Activity#onCreate}
@@ -128,9 +135,17 @@ public class MainActivity extends AppCompatActivity {
                 String creaded = firstStatus.getCreated_at();
                 String text = firstStatus.getText();
                 String userName = firstStatus.getUser().getName();
+                String device = parseXmlGetDevice(firstStatus.getSource());
                 timeTv.setText(creaded);
                 contentTv.setText(text);
                 userTv.setText(userName);
+                deviceTv.setText(device);
+                commentsRepostCount.setText(firstStatus.getReposts_count() + "条转发 & " + firstStatus.getComments_count() + "条回复");
+                if (firstStatus.getRetweeted_status() != null) {
+                    retweetedContentTv.setText("@" + firstStatus.getRetweeted_status().getUser().getName() + ":" + firstStatus.getRetweeted_status().getText());
+                    retweetedCommentsRepostCount.setText(firstStatus.getRetweeted_status().getReposts_count() + "条转发 & " +
+                            firstStatus.getRetweeted_status().getComments_count() + "条回复");
+                }
             }
 
             @Override
@@ -141,6 +156,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private String parseXmlGetDevice(String deviceXml) {
+        String datas = String.valueOf(Html.fromHtml(deviceXml));
+        return datas;
     }
 
 }
