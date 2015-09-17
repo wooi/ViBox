@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.ContentActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +32,7 @@
         <activity android:name=".openapi.WBCommentAPIActivity" />
         <activity android:name=".openapi.WBInviteAPIActivity" />
         <activity android:name=".openapi.WBLogoutAPIActivity" />
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.ContentActivity"></activity>
 
         <!-- 必须注册在微博授权，分享微博时候用到 -->
         <activity android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"

@@ -68,17 +68,12 @@ public class ImageGridAdapter extends BaseAdapter {
     }
 
 
-    static class ViewHolder {
+     class ViewHolder {
         @Bind(R.id.pic_url_iv)
         ImageView picUrlIv;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
-            View parents = (View) picUrlIv.getParent();
-            int width = parents.getWidth();
-            int ivWidth  = (width -20)/3;
-
-//            picUrlIv.setLayoutParams(new LinearLayout.LayoutParams(ivWidth, ivWidth));
         }
     }
 }

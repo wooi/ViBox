@@ -38,6 +38,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.utils.LogUtil;
 import com.wooi.vibox.R;
 import com.wooi.vibox.adapter.ImageGridAdapter;
+import com.wooi.vibox.logger.Logger;
 import com.wooi.vibox.model.Status;
 import com.wooi.vibox.openapi.WBAuthActivity;
 import com.wooi.vibox.openapi.WBOpenAPIActivity;
@@ -45,6 +46,7 @@ import com.wooi.vibox.util.Content;
 import com.wooi.vibox.util.GetJSONArray;
 import com.wooi.vibox.util.HttpUtil;
 import com.wooi.vibox.util.ImageLoaderOptionsUtil;
+import com.wooi.vibox.util.Parse;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -120,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.open_api:
                 startActivity(new Intent(MainActivity.this, WBOpenAPIActivity.class));
                 break;
+            case R.id.content:
+                startActivity(new Intent(MainActivity.this, ContentActivity.class));
+                break;
         }
         return true;
     }
@@ -143,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 String creaded = firstStatus.getCreated_at();
                 String text = firstStatus.getText();
                 String userName = firstStatus.getUser().getName();
-                String device = parseXmlGetDevice(firstStatus.getSource());
+                String device = Parse.parseXmlGetDevice(firstStatus.getSource());
                 timeTv.setText(creaded);
                 contentTv.setText(text);
                 userTv.setText(userName);
@@ -174,10 +179,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private String parseXmlGetDevice(String deviceXml) {
-        String datas = String.valueOf(Html.fromHtml(deviceXml));
-        return datas;
-    }
 
 
 }

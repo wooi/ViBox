@@ -33,4 +33,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile files('libs/butterknife-7.0.1.jar')
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    compile 'com.android.support:recyclerview-v7:21.0.+'
 }

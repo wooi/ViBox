@@ -14,6 +14,8 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.wooi.vibox.logger.LogLevel;
+import com.wooi.vibox.logger.Logger;
 import com.wooi.vibox.token.AccessTokenKeeper;
 
 import java.io.File;
@@ -34,6 +36,15 @@ public class DataApplication extends Application {
         getTokenAndUid(this);
         singleton = this;
         ImageLoader.getInstance().init(getDefaultConfig(getApplicationContext()));
+    }
+
+    private void Logger() {
+        Logger
+                .init("Vibox")               // default PRETTYLOGGER or use just init()
+                .setMethodCount(3)            // default 2
+                .hideThreadInfo()             // default shown
+                .setLogLevel(LogLevel.FULL)  // default LogLevel.FULL
+        .setMethodOffset(2);
     }
 
 
