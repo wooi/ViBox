@@ -40,7 +40,6 @@ public class ContentRecyclerViewAdapter extends RecyclerView.Adapter<ContentRecy
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.content_item_fragment, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
-
         return viewHolder;
     }
 

@@ -45,6 +45,7 @@ public class ContentFragment extends Fragment {
     RecyclerView contentRv;
 
     RecyclerView.LayoutManager mLayoutManager;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class ContentFragment extends Fragment {
                 Type listType = new TypeToken<ArrayList<Status>>() {
                 }.getType();
                 ArrayList<Status> statusList = new Gson().fromJson(responseArray.toString(), listType);
-                ContentRecyclerViewAdapter adapter = new ContentRecyclerViewAdapter(getActivity().getApplicationContext(),statusList);
+                ContentRecyclerViewAdapter adapter = new ContentRecyclerViewAdapter(getActivity().getApplicationContext(), statusList);
                 contentRv.setAdapter(adapter);
                 adapter.setRvOnClickListener(new MyRvOnClickListener());
                 adapter.setGvOnClickListener(new MyGvOnClickListener());
@@ -92,19 +93,19 @@ public class ContentFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    class MyRvOnClickListener implements ContentRecyclerViewAdapter.RvOnClickListner{
+    private class MyRvOnClickListener implements ContentRecyclerViewAdapter.RvOnClickListner {
 
         @Override
         public void rvItemClick(View v, int posistion) {
-            Toast.makeText(getActivity().getApplicationContext(), ""+posistion, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), "" + posistion, Toast.LENGTH_SHORT).show();
         }
     }
 
-    class MyGvOnClickListener implements ContentRecyclerViewAdapter.GvOnClickListener{
+    private class MyGvOnClickListener implements ContentRecyclerViewAdapter.GvOnClickListener {
 
         @Override
         public void gvitemClick(int itemPosition, int position) {
-            Toast.makeText(getActivity().getApplicationContext(),itemPosition+ ""+position, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), itemPosition + "" + position, Toast.LENGTH_SHORT).show();
         }
     }
 
