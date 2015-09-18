@@ -5,13 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wooi.vibox.R;
-import com.wooi.vibox.model.Content;
 import com.wooi.vibox.model.Status;
 import com.wooi.vibox.util.ImageLoaderOptionsUtil;
 import com.wooi.vibox.util.Parse;
@@ -28,7 +29,7 @@ public class ContentRecyclerViewApater extends RecyclerView.Adapter<ContentRecyc
     private ArrayList<Status> statusList;
     private Context context;
 
-    public ContentRecyclerViewApater(Context context,ArrayList<Status> statusList) {
+    public ContentRecyclerViewApater(Context context, ArrayList<Status> statusList) {
         this.statusList = statusList;
         this.context = context;
     }
@@ -42,6 +43,11 @@ public class ContentRecyclerViewApater extends RecyclerView.Adapter<ContentRecyc
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        setContent(viewHolder, i);
+        getLargeImage(viewHolder);
+    }
+
+    private void setContent(ViewHolder viewHolder, int i) {
         Status status = statusList.get(i);
         viewHolder.contentTv.setText(status.getText());
         viewHolder.timeTv.setText(status.getCreated_at());
@@ -62,6 +68,17 @@ public class ContentRecyclerViewApater extends RecyclerView.Adapter<ContentRecyc
             ImageGridAdapter imageGridAdapter = new ImageGridAdapter(context, status.getRetweeted_status().getPic_urls());
             viewHolder.retweetedContentGv.setAdapter(imageGridAdapter);
         }
+
+    }
+
+    private void getLargeImage(ViewHolder viewHolder) {
+
+        viewHolder.contentGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(context, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -93,7 +110,7 @@ public class ContentRecyclerViewApater extends RecyclerView.Adapter<ContentRecyc
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
