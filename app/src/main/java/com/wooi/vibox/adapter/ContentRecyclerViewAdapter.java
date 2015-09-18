@@ -25,11 +25,13 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2015/9/17.
  */
-public class ContentRecyclerViewApater extends RecyclerView.Adapter<ContentRecyclerViewApater.ViewHolder> {
+public class ContentRecyclerViewAdapter extends RecyclerView.Adapter<ContentRecyclerViewAdapter.ViewHolder> {
     private ArrayList<Status> statusList;
     private Context context;
+    private RvOnClickListner rvOnClickListner = null;
+    private GvOnClickListener gvOnClickListener = null;
 
-    public ContentRecyclerViewApater(Context context, ArrayList<Status> statusList) {
+    public ContentRecyclerViewAdapter(Context context, ArrayList<Status> statusList) {
         this.statusList = statusList;
         this.context = context;
     }
@@ -38,13 +40,14 @@ public class ContentRecyclerViewApater extends RecyclerView.Adapter<ContentRecyc
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.content_item_fragment, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
+
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        setContent(viewHolder, i);
-        getLargeImage(viewHolder);
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        setContent(viewHolder, position);
+        getLargeImage(viewHolder, position);
     }
 
     private void setContent(ViewHolder viewHolder, int i) {
@@ -71,12 +74,11 @@ public class ContentRecyclerViewApater extends RecyclerView.Adapter<ContentRecyc
 
     }
 
-    private void getLargeImage(ViewHolder viewHolder) {
-
+    private void getLargeImage(ViewHolder viewHolder, final int ItemPosition) {
         viewHolder.contentGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(context, "" + position, Toast.LENGTH_SHORT).show();
+                gvOnClickListener.gvitemClick(ItemPosition, position);
             }
         });
     }
@@ -86,7 +88,15 @@ public class ContentRecyclerViewApater extends RecyclerView.Adapter<ContentRecyc
         return statusList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public void setRvOnClickListener(RvOnClickListner rvOnClickListner) {
+        this.rvOnClickListner = rvOnClickListner;
+    }
+
+    public void setGvOnClickListener(GvOnClickListener gvOnClickListener) {
+        this.gvOnClickListener = gvOnClickListener;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @Bind(R.id.user_ib)
         ImageButton userIb;
         @Bind(R.id.user_tv)
@@ -110,7 +120,25 @@ public class ContentRecyclerViewApater extends RecyclerView.Adapter<ContentRecyc
 
         public ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
         }
+
+        @Override
+        public void onClick(View v) {
+            if (rvOnClickListner != null) {
+                rvOnClickListner.rvItemClick(v, getPosition());
+            }
+        }
+
     }
+
+    public static interface RvOnClickListner {
+        void rvItemClick(View v, int posistion);
+    }
+
+    public static interface GvOnClickListener {
+        void gvitemClick(int itemPosition, int position);
+    }
+
 }

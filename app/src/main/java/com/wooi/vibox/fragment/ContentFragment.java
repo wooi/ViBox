@@ -1,6 +1,5 @@
 package com.wooi.vibox.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,14 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.wooi.vibox.R;
-import com.wooi.vibox.adapter.ContentRecyclerViewApater;
-import com.wooi.vibox.logger.Logger;
+import com.wooi.vibox.adapter.ContentRecyclerViewAdapter;
 import com.wooi.vibox.model.Status;
 import com.wooi.vibox.util.Content;
 import com.wooi.vibox.util.GetJSONArray;
@@ -34,6 +33,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 
 /**
  * Created by Administrator on 2015/9/16.
@@ -70,8 +70,10 @@ public class ContentFragment extends Fragment {
                 Type listType = new TypeToken<ArrayList<Status>>() {
                 }.getType();
                 ArrayList<Status> statusList = new Gson().fromJson(responseArray.toString(), listType);
-                ContentRecyclerViewApater apater = new ContentRecyclerViewApater(getActivity().getApplicationContext(),statusList);
-                contentRv.setAdapter(apater);
+                ContentRecyclerViewAdapter adapter = new ContentRecyclerViewAdapter(getActivity().getApplicationContext(),statusList);
+                contentRv.setAdapter(adapter);
+                adapter.setRvOnClickListener(new MyRvOnClickListener());
+                adapter.setGvOnClickListener(new MyGvOnClickListener());
             }
 
             @Override
@@ -89,4 +91,21 @@ public class ContentFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
+    class MyRvOnClickListener implements ContentRecyclerViewAdapter.RvOnClickListner{
+
+        @Override
+        public void rvItemClick(View v, int posistion) {
+            Toast.makeText(getActivity().getApplicationContext(), ""+posistion, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    class MyGvOnClickListener implements ContentRecyclerViewAdapter.GvOnClickListener{
+
+        @Override
+        public void gvitemClick(int itemPosition, int position) {
+            Toast.makeText(getActivity().getApplicationContext(),itemPosition+ ""+position, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
