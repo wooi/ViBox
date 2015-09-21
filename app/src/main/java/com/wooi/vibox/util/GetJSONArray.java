@@ -17,4 +17,14 @@ public class GetJSONArray {
         }
         return statusJSONArray;
     }
+
+    public  static JSONArray getComments(JSONObject jsonObject)  {
+        JSONArray commentsJSONArray = null;
+        try {
+            commentsJSONArray = jsonObject.getJSONArray("comments");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return commentsJSONArray;
+    }
 }

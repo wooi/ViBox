@@ -1,6 +1,6 @@
 package com.wooi.vibox.fragment;
 
-import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.wooi.vibox.R;
+import com.wooi.vibox.activity.TweetContent;
 import com.wooi.vibox.adapter.ContentRecyclerViewAdapter;
 import com.wooi.vibox.model.Status;
 import com.wooi.vibox.util.Content;
@@ -38,7 +39,7 @@ import butterknife.OnClick;
 /**
  * Created by Administrator on 2015/9/16.
  */
-public class ContentFragment extends Fragment {
+public class ContentFragment extends BaseFragment {
     @Bind(R.id.testbt)
     Button testbt;
     @Bind(R.id.content_rv)
@@ -46,15 +47,32 @@ public class ContentFragment extends Fragment {
 
     RecyclerView.LayoutManager mLayoutManager;
 
+    ArrayList<Status> statusContentList;
+
     @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.content_fragment, container, false);
+//        ButterKnife.bind(this, view);
+//        mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+//        contentRv.setLayoutManager(mLayoutManager);
+//        contentRv.setHasFixedSize(true);
+//        return view;
+//    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.content_fragment, container, false);
         ButterKnife.bind(this, view);
-        mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        mLayoutManager = new LinearLayoutManager(mContext);
         contentRv.setLayoutManager(mLayoutManager);
         contentRv.setHasFixedSize(true);
         return view;
+    }
+
+    @Override
+    protected void initData() {
+        getFriendTimeLine();
     }
 
     @OnClick(R.id.testbt)
@@ -71,7 +89,8 @@ public class ContentFragment extends Fragment {
                 Type listType = new TypeToken<ArrayList<Status>>() {
                 }.getType();
                 ArrayList<Status> statusList = new Gson().fromJson(responseArray.toString(), listType);
-                ContentRecyclerViewAdapter adapter = new ContentRecyclerViewAdapter(getActivity().getApplicationContext(), statusList);
+                statusContentList = statusList;
+                ContentRecyclerViewAdapter adapter = new ContentRecyclerViewAdapter(mContext, statusContentList);
                 contentRv.setAdapter(adapter);
                 adapter.setRvOnClickListener(new MyRvOnClickListener());
                 adapter.setGvOnClickListener(new MyGvOnClickListener());
@@ -97,7 +116,11 @@ public class ContentFragment extends Fragment {
 
         @Override
         public void rvItemClick(View v, int posistion) {
-            Toast.makeText(getActivity().getApplicationContext(), "" + posistion, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "" + posistion, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(mActivity, TweetContent.class);
+            intent.putExtra("status", statusContentList.get(posistion));
+
+            startActivity(intent);
         }
     }
 
@@ -105,7 +128,7 @@ public class ContentFragment extends Fragment {
 
         @Override
         public void gvitemClick(int itemPosition, int position) {
-            Toast.makeText(getActivity().getApplicationContext(), itemPosition + "" + position, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, itemPosition + "" + position, Toast.LENGTH_SHORT).show();
         }
     }
 

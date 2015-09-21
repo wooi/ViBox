@@ -1,9 +1,11 @@
 package com.wooi.vibox.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2015/9/11.
  */
-public class Visible {
+public class Visible implements Serializable {
 
     /**
      * type : 0

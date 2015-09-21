@@ -1,33 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/weibo_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/blue"
-        app:title="@string/hello_world" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/test" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/framglayou_margin_buttom_top"
-        android:layout_marginLeft="@dimen/framglayou_magin_right_left"
-        android:layout_marginRight="@dimen/framglayou_magin_right_left"
-        android:layout_marginTop="@dimen/framglayou_margin_buttom_top"
-        android:background="@drawable/item_background_selector_light">
+        android:layout_marginBottom="@dimen/framglayou_margin_buttom_top_single_content"
+        android:layout_marginLeft="@dimen/framglayou_magin_right_left_single_content"
+        android:layout_marginRight="@dimen/framglayou_magin_right_left_single_content"
+        android:layout_marginTop="@dimen/framglayou_margin_buttom_top_single_content"
+        android:background="@color/blue">
 
         <RelativeLayout
 
@@ -160,6 +144,4 @@
         </RelativeLayout>
 
     </FrameLayout>
-
-
 </LinearLayout>

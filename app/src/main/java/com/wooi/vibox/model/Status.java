@@ -2,12 +2,13 @@ package com.wooi.vibox.model;
 
 import android.graphics.Picture;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2015/9/11.
  */
-public class Status {
+public class Status implements Serializable{
 
     /**
      * created_at : Fri Sep 11 15:38:05 +0800 2015

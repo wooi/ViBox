@@ -2,10 +2,12 @@ package com.wooi.vibox.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2015/9/11.
  */
-public class User {
+public class User implements Serializable {
 
     /**
      * id : 1773436304

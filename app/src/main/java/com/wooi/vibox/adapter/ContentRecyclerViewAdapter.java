@@ -59,9 +59,14 @@ public class ContentRecyclerViewAdapter extends RecyclerView.Adapter<ContentRecy
         viewHolder.commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
         String url = status.getUser().getProfile_image_url();
         ImageLoader.getInstance().displayImage(url, viewHolder.userIb, ImageLoaderOptionsUtil.getWholeOptions());
+        int numColumns = status.getPic_urls().size();
+        if (numColumns>=3){
+            numColumns = 3;
+        }
         if (status.getPic_urls() != null) {
             ImageGridAdapter imageGridAdapter = new ImageGridAdapter(context, status.getPic_urls());
             viewHolder.contentGv.setAdapter(imageGridAdapter);
+            viewHolder.contentGv.setNumColumns(numColumns);
         }
         if (status.getRetweeted_status() != null) {
             viewHolder.retweetedContentTv.setText("@" + status.getRetweeted_status().getUser().getName() + " : " + status.getRetweeted_status().getText());
@@ -69,6 +74,12 @@ public class ContentRecyclerViewAdapter extends RecyclerView.Adapter<ContentRecy
                     status.getRetweeted_status().getComments_count() + "条回复");
             ImageGridAdapter imageGridAdapter = new ImageGridAdapter(context, status.getRetweeted_status().getPic_urls());
             viewHolder.retweetedContentGv.setAdapter(imageGridAdapter);
+            int retweetedNumColumns = status.getPic_urls().size();
+            if (retweetedNumColumns>=3){
+                retweetedNumColumns = 3;
+            }
+            viewHolder.retweetedContentGv.setNumColumns(numColumns);
+            viewHolder.retweetedContentGv.setNumColumns(retweetedNumColumns);
         }
 
     }

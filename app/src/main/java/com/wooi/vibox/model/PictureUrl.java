@@ -1,9 +1,11 @@
 package com.wooi.vibox.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2015/9/11.
  */
-public class PictureUrl {
+public class PictureUrl implements Serializable {
 
     /**
      * thumbnail_pic : http://ww2.sinaimg.cn/thumbnail/7049c17bjw1evylm2gueqj20b00gitac.jpg

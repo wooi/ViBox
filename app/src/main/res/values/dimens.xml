@@ -6,6 +6,9 @@
     <dimen name="framglayou_margin_buttom_top">8dp</dimen>
     <dimen name="framglayou_magin_right_left">10dp</dimen>
 
+    <dimen name="framglayou_margin_buttom_top_single_content">4dp</dimen>
+    <dimen name="framglayou_magin_right_left_single_content">5dp</dimen>
+
     <dimen name="user_imager_height">50dp</dimen>
     <dimen name="user_imager_width">50dp</dimen>
     <dimen name="comment_count_textsize">11sp</dimen>
