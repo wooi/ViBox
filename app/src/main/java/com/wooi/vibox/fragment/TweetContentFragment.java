@@ -3,6 +3,7 @@ package com.wooi.vibox.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -67,21 +68,19 @@ public class TweetContentFragment extends BaseFragment {
     TextView retweetedCommentsRepostCount;
     @Bind(R.id.comments_repost_count)
     TextView commentsRepostCount;
-//    @Bind(R.id.comments_rv)
-//    RecyclerView commentsRv;
+    @Bind(R.id.comments_rv)
+    RecyclerView commentsRv;
     private AppCompatActivity appCompatActivity;
 
     private Status status;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        Intent intent = mActivity.getIntent();
-        status = (Status) intent.getSerializableExtra("status");
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
+    private RecyclerView.LayoutManager mLayoutManager;
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        // TODO: inflate a fragment view
+//        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+//        ButterKnife.bind(this, rootView);
+//        return rootView;
+//    }
 
     @Override
     public void onDestroyView() {
@@ -94,6 +93,12 @@ public class TweetContentFragment extends BaseFragment {
     View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tweet_content_fragment_layout, container, false);
         ButterKnife.bind(this, view);
+        Intent intent = mActivity.getIntent();
+        status = (Status) intent.getSerializableExtra("status");
+        mLayoutManager=new LinearLayoutManager(getActivity().getApplicationContext());
+        commentsRv.setLayoutManager(mLayoutManager);
+        commentsRv.setHasFixedSize(true);
+
         appCompatActivity = (AppCompatActivity) mActivity;
         appCompatActivity.setSupportActionBar(toolbar);
         appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -104,7 +109,7 @@ public class TweetContentFragment extends BaseFragment {
     @Override
     protected void initData() {
         getSingleContent();
-//        getComments();
+        getComments();
     }
 
 
@@ -148,16 +153,18 @@ public class TweetContentFragment extends BaseFragment {
     }
 
     public void getComments() {
-        HttpUtil.get(Content.COMMENTS, new RequestParams(), new JsonHttpResponseHandler() {
+        RequestParams requestParams  = new RequestParams();
+        requestParams.put("id",status.getId());
+        HttpUtil.get(Content.COMMENTS, requestParams, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 JSONArray commentsJSONArray = GetJSONArray.getComments(response);
                 Type listType =new TypeToken<ArrayList<Comments>>(){}.getType();
                 ArrayList<Comments> commentArrayList = new Gson().fromJson(commentsJSONArray.toString(), listType);
-                Logger.json(commentsJSONArray.toString());
-//                CommentsAdapter commentsAdapter = new CommentsAdapter(mContext,commentArrayList);
-//                commentsRv.setAdapter(commentsAdapter);
+//                Logger.json(commentsJSONArray.toString());
+                CommentsAdapter commentsAdapter = new CommentsAdapter(getActivity().getApplicationContext(),commentArrayList);
+                commentsRv.setAdapter(commentsAdapter);
             }
         });
     }
