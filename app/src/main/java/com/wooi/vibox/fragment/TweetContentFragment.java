@@ -3,10 +3,10 @@ package com.wooi.vibox.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +19,12 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.sina.weibo.sdk.openapi.models.Comment;
 import com.wooi.vibox.R;
 import com.wooi.vibox.adapter.CommentsAdapter;
 import com.wooi.vibox.adapter.ImageGridAdapter;
-import com.wooi.vibox.logger.Logger;
 import com.wooi.vibox.model.Comments;
 import com.wooi.vibox.model.Status;
+import com.wooi.vibox.ui.SimpleDividerItemDecoration;
 import com.wooi.vibox.util.Content;
 import com.wooi.vibox.util.GetJSONArray;
 import com.wooi.vibox.util.HttpUtil;
@@ -103,6 +102,7 @@ public class TweetContentFragment extends BaseFragment {
         appCompatActivity.setSupportActionBar(toolbar);
         appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new MytoolBarClickListener());
+
         return view;
     }
 
@@ -122,27 +122,26 @@ public class TweetContentFragment extends BaseFragment {
                 commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
                 String url = status.getUser().getProfile_image_url();
                 ImageLoader.getInstance().displayImage(url, userIb, ImageLoaderOptionsUtil.getWholeOptions());
-                int numColumns = status.getPic_urls().size();
-                if (numColumns >= 3) {
-                    numColumns = 3;
-                }
-                if (status.getPic_urls() != null) {
-                    ImageGridAdapter imageGridAdapter = new ImageGridAdapter(mContext, status.getPic_urls());
-                    contentGv.setAdapter(imageGridAdapter);
-                    contentGv.setNumColumns(numColumns);
-                }
+//                int numColumns = status.getPic_urls().size();
+//                if (numColumns >= 3) {
+//                    numColumns = 3;
+//                }
+//                if (status.getPic_urls() != null) {
+//                    ImageGridAdapter imageGridAdapter = new ImageGridAdapter(mContext, status.getPic_urls());
+//                    contentGv.setAdapter(imageGridAdapter);
+//                    contentGv.setNumColumns(numColumns);
+//                }
                 if (status.getRetweeted_status() != null) {
                     retweetedContentTv.setText("@" + status.getRetweeted_status().getUser().getName() + " : " + status.getRetweeted_status().getText());
                     retweetedCommentsRepostCount.setText(status.getRetweeted_status().getReposts_count() + "条转发 & " +
                             status.getRetweeted_status().getComments_count() + "条回复");
                     ImageGridAdapter imageGridAdapter = new ImageGridAdapter(mContext, status.getRetweeted_status().getPic_urls());
                     retweetedContentGv.setAdapter(imageGridAdapter);
-                    int retweetedNumColumns = status.getPic_urls().size();
-                    if (retweetedNumColumns >= 3) {
-                        retweetedNumColumns = 3;
-                    }
-                    retweetedContentGv.setNumColumns(numColumns);
-                    retweetedContentGv.setNumColumns(retweetedNumColumns);
+//                    int retweetedNumColumns = status.getPic_urls().size();
+//                    if (retweetedNumColumns >= 3) {
+//                        retweetedNumColumns = 3;
+//                    }
+//                    retweetedContentGv.setNumColumns(retweetedNumColumns);
                 }
 
     }
@@ -165,6 +164,7 @@ public class TweetContentFragment extends BaseFragment {
 //                Logger.json(commentsJSONArray.toString());
                 CommentsAdapter commentsAdapter = new CommentsAdapter(getActivity().getApplicationContext(),commentArrayList);
                 commentsRv.setAdapter(commentsAdapter);
+                commentsRv.addItemDecoration(new SimpleDividerItemDecoration(getActivity().getApplicationContext()));
             }
         });
     }
