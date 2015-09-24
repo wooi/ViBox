@@ -3,8 +3,12 @@ package com.wooi.vibox.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,11 +48,9 @@ public class ContentFragment extends BaseFragment {
     Button testbt;
     @Bind(R.id.content_rv)
     RecyclerView contentRv;
-
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Status> statusContentList;
 
-    @Nullable
 
     @Override
     View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,17 +59,16 @@ public class ContentFragment extends BaseFragment {
         mLayoutManager = new LinearLayoutManager(mContext);
         contentRv.setLayoutManager(mLayoutManager);
         contentRv.setHasFixedSize(true);
-
         return view;
-    }
-
-    @Override
-    protected void initData() {
-        getFriendTimeLine();
     }
 
     @OnClick(R.id.testbt)
     public void click() {
+        getFriendTimeLine();
+    }
+
+    @Override
+    protected void initData() {
         getFriendTimeLine();
     }
 
