@@ -69,23 +69,10 @@ public class TweetContentFragment extends BaseFragment {
     TextView commentsRepostCount;
     @Bind(R.id.comments_rv)
     RecyclerView commentsRv;
-    private AppCompatActivity appCompatActivity;
 
+    private AppCompatActivity appCompatActivity;
     private Status status;
     private RecyclerView.LayoutManager mLayoutManager;
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        // TODO: inflate a fragment view
-//        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-//        ButterKnife.bind(this, rootView);
-//        return rootView;
-//    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
 
 
     @Override
@@ -94,7 +81,7 @@ public class TweetContentFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         Intent intent = mActivity.getIntent();
         status = (Status) intent.getSerializableExtra("status");
-        mLayoutManager=new LinearLayoutManager(getActivity().getApplicationContext());
+        mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         commentsRv.setLayoutManager(mLayoutManager);
         commentsRv.setHasFixedSize(true);
 
@@ -106,22 +93,22 @@ public class TweetContentFragment extends BaseFragment {
         return view;
     }
 
+
     @Override
     protected void initData() {
         getSingleContent();
         getComments();
     }
 
-
     private void getSingleContent() {
-                contentTv.setText(status.getText());
-                timeTv.setText(status.getCreated_at());
-                userTv.setText(status.getUser().getName());
-                String device = Parse.parseXmlGetDevice(status.getSource());
-                deviceTv.setText(device);
-                commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
-                String url = status.getUser().getProfile_image_url();
-                ImageLoader.getInstance().displayImage(url, userIb, ImageLoaderOptionsUtil.getWholeOptions());
+        contentTv.setText(status.getText());
+        timeTv.setText(status.getCreated_at());
+        userTv.setText(status.getUser().getName());
+        String device = Parse.parseXmlGetDevice(status.getSource());
+        deviceTv.setText(device);
+        commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
+        String url = status.getUser().getProfile_image_url();
+        ImageLoader.getInstance().displayImage(url, userIb, ImageLoaderOptionsUtil.getWholeOptions());
 //                int numColumns = status.getPic_urls().size();
 //                if (numColumns >= 3) {
 //                    numColumns = 3;
@@ -131,19 +118,26 @@ public class TweetContentFragment extends BaseFragment {
 //                    contentGv.setAdapter(imageGridAdapter);
 //                    contentGv.setNumColumns(numColumns);
 //                }
-                if (status.getRetweeted_status() != null) {
-                    retweetedContentTv.setText("@" + status.getRetweeted_status().getUser().getName() + " : " + status.getRetweeted_status().getText());
-                    retweetedCommentsRepostCount.setText(status.getRetweeted_status().getReposts_count() + "条转发 & " +
-                            status.getRetweeted_status().getComments_count() + "条回复");
-                    ImageGridAdapter imageGridAdapter = new ImageGridAdapter(mContext, status.getRetweeted_status().getPic_urls());
-                    retweetedContentGv.setAdapter(imageGridAdapter);
+        if (status.getRetweeted_status() != null) {
+            retweetedContentTv.setText("@" + status.getRetweeted_status().getUser().getName() + " : " + status.getRetweeted_status().getText());
+            retweetedCommentsRepostCount.setText(status.getRetweeted_status().getReposts_count() + "条转发 & " +
+                    status.getRetweeted_status().getComments_count() + "条回复");
+            ImageGridAdapter imageGridAdapter = new ImageGridAdapter(mContext, status.getRetweeted_status().getPic_urls());
+            retweetedContentGv.setAdapter(imageGridAdapter);
 //                    int retweetedNumColumns = status.getPic_urls().size();
 //                    if (retweetedNumColumns >= 3) {
 //                        retweetedNumColumns = 3;
 //                    }
 //                    retweetedContentGv.setNumColumns(retweetedNumColumns);
-                }
+        }
 
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     private void onBackPress() {
@@ -152,17 +146,18 @@ public class TweetContentFragment extends BaseFragment {
     }
 
     public void getComments() {
-        RequestParams requestParams  = new RequestParams();
-        requestParams.put("id",status.getId());
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("id", status.getId());
         HttpUtil.get(Content.COMMENTS, requestParams, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 JSONArray commentsJSONArray = GetJSONArray.getComments(response);
-                Type listType =new TypeToken<ArrayList<Comments>>(){}.getType();
+                Type listType = new TypeToken<ArrayList<Comments>>() {
+                }.getType();
                 ArrayList<Comments> commentArrayList = new Gson().fromJson(commentsJSONArray.toString(), listType);
 //                Logger.json(commentsJSONArray.toString());
-                CommentsAdapter commentsAdapter = new CommentsAdapter(getActivity().getApplicationContext(),commentArrayList);
+                CommentsAdapter commentsAdapter = new CommentsAdapter(getActivity().getApplicationContext(), commentArrayList);
                 commentsRv.setAdapter(commentsAdapter);
                 commentsRv.addItemDecoration(new SimpleDividerItemDecoration(getActivity().getApplicationContext()));
             }

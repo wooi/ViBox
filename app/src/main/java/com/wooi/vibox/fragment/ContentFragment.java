@@ -45,20 +45,10 @@ public class ContentFragment extends BaseFragment {
     @Bind(R.id.content_rv)
     RecyclerView contentRv;
 
-    RecyclerView.LayoutManager mLayoutManager;
-
-    ArrayList<Status> statusContentList;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<Status> statusContentList;
 
     @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.content_fragment, container, false);
-//        ButterKnife.bind(this, view);
-//        mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-//        contentRv.setLayoutManager(mLayoutManager);
-//        contentRv.setHasFixedSize(true);
-//        return view;
-//    }
 
     @Override
     View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,6 +57,7 @@ public class ContentFragment extends BaseFragment {
         mLayoutManager = new LinearLayoutManager(mContext);
         contentRv.setLayoutManager(mLayoutManager);
         contentRv.setHasFixedSize(true);
+
         return view;
     }
 
