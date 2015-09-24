@@ -7,7 +7,7 @@ import com.loopj.android.http.ResponseHandlerInterface;
 /**
  * Created by Administrator on 2015/9/7.
  */
-public class HttpUtil {
+public class HttpUtiltest {
     static final AsyncHttpClient client = new AsyncHttpClient();
 
     public static void get(String url, ResponseHandlerInterface responseHandlerInterface) {

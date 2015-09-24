@@ -31,7 +31,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sina.weibo.sdk.utils.LogUtil;
 import com.wooi.vibox.R;
-import com.wooi.vibox.demo.Util.HttpUtil;
+import com.wooi.vibox.demo.Util.HttpUtiltest;
 import com.wooi.vibox.demo.openapi.WBAuthActivity;
 import com.wooi.vibox.demo.openapi.WBOpenAPIActivity;
 
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 paramsMap.put("access_token","2.00FLsKEC0JZ_wrb789018166ZPyBUC");
                 paramsMap.put("uid","1893962551");
                 RequestParams params = new RequestParams(paramsMap);
-                HttpUtil.get("https://api.weibo.com/2/users/show.json",params,new JsonHttpResponseHandler(){
+                HttpUtiltest.get("https://api.weibo.com/2/users/show.json", params, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         super.onSuccess(statusCode, headers, response);
