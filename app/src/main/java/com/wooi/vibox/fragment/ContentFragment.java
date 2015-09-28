@@ -18,7 +18,8 @@ import com.loopj.android.http.RequestParams;
 import com.wooi.vibox.DataApplication;
 import com.wooi.vibox.R;
 import com.wooi.vibox.activity.TweetContent;
-import com.wooi.vibox.adapter.ContentRecyclerViewAdapter;
+import com.wooi.vibox.activity.UserPage;
+import com.wooi.vibox.adapter.ContentRVAdapter;
 import com.wooi.vibox.model.Status;
 import com.wooi.vibox.util.Content;
 import com.wooi.vibox.util.GetJSONArray;
@@ -79,10 +80,11 @@ public class ContentFragment extends BaseFragment {
                 }.getType();
                 ArrayList<Status> statusList = new Gson().fromJson(responseArray.toString(), listType);
                 statusContentList = statusList;
-                ContentRecyclerViewAdapter adapter = new ContentRecyclerViewAdapter(mContext, statusContentList);
+                ContentRVAdapter adapter = new ContentRVAdapter(mContext, statusContentList);
                 contentRv.setAdapter(adapter);
                 adapter.setRvOnClickListener(new MyRvOnClickListener());
                 adapter.setGvOnClickListener(new MyGvOnClickListener());
+                adapter.setIbOnClickListener(new MyIbOnClickListener());
             }
 
             @Override
@@ -106,24 +108,34 @@ public class ContentFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    private class MyRvOnClickListener implements ContentRecyclerViewAdapter.RvOnClickListner {
+    private class MyRvOnClickListener implements ContentRVAdapter.RvOnClickListner {
 
         @Override
         public void rvItemClick(View v, int posistion) {
             Toast.makeText(mContext, "" + posistion, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(mActivity, TweetContent.class);
             intent.putExtra("status", statusContentList.get(posistion));
-
             startActivity(intent);
         }
     }
 
-    private class MyGvOnClickListener implements ContentRecyclerViewAdapter.GvOnClickListener {
+    private class MyGvOnClickListener implements ContentRVAdapter.GvOnClickListener {
 
         @Override
-        public void gvitemClick(int itemPosition, int position) {
+        public void gvItemClick(int itemPosition, int position) {
             Toast.makeText(mContext, itemPosition + "" + position, Toast.LENGTH_SHORT).show();
+
         }
     }
 
+    private class MyIbOnClickListener implements ContentRVAdapter.IbOnClickListener{
+        @Override
+        public void ibItemClick(int itemPostion) {
+//            Status status = statusContentList.get(itemPostion);
+//            String UID =status.getUser().getIdstr();
+            Intent intent = new Intent(mActivity, UserPage.class);
+//            intent.putExtra("uid",UID);
+            startActivity(intent);
+        }
+    }
 }

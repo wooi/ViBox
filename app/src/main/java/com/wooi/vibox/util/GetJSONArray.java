@@ -27,4 +27,16 @@ public class GetJSONArray {
         }
         return commentsJSONArray;
     }
+
+    public static JSONArray getFollowList(JSONObject jsonObject){
+        JSONArray followingJSONArray = null;
+        try {
+            followingJSONArray = jsonObject.getJSONArray("users");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return followingJSONArray;
+    }
+
 }
+

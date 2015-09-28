@@ -1,5 +1,6 @@
 package com.wooi.vibox.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.wooi.vibox.DataApplication;
 import com.wooi.vibox.R;
 import com.wooi.vibox.adapter.UserVPAdapter;
 import com.wooi.vibox.util.Content;
@@ -58,13 +60,15 @@ public class UserPageFragment extends BaseFragment {
 
     private List<Fragment> listFragment;
     private AppCompatActivity appCompatActivity;
-
+    private String UID = DataApplication.getSingleton().getmUid();
     @Override
     View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_page_fragment, container, false);
         ButterKnife.bind(this, view);
+//        Intent intent = mActivity.getIntent();
+//        UID =intent.getStringExtra("uid");
         listFragment = new ArrayList<Fragment>();
-        listFragment.add(new UserTimeLine("123"));
+        listFragment.add(new UserTimeLine(UID));
         listFragment.add(new ContentFragment());
         appCompatActivity = (AppCompatActivity) mActivity;
         UserVPAdapter userVPAdapter = new UserVPAdapter(appCompatActivity.getSupportFragmentManager(), listFragment, mContext);

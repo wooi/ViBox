@@ -35,6 +35,7 @@
         <activity android:name=".activity.ContentActivity"></activity>
         <activity android:name=".activity.TweetContent"></activity>
         <activity android:name=".activity.UserPage"></activity>
+        <activity android:name=".activity.Follow"></activity>
 
         <!-- 必须注册在微博授权，分享微博时候用到 -->
         <activity android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"

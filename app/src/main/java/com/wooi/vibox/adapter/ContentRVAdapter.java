@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wooi.vibox.R;
@@ -25,13 +24,14 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2015/9/17.
  */
-public class ContentRecyclerViewAdapter extends RecyclerView.Adapter<ContentRecyclerViewAdapter.ViewHolder> {
+public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.ViewHolder> {
     private ArrayList<Status> statusList;
     private Context context;
     private RvOnClickListner rvOnClickListner = null;
     private GvOnClickListener gvOnClickListener = null;
+    private IbOnClickListener ibOnClickListener = null;
 
-    public ContentRecyclerViewAdapter(Context context, ArrayList<Status> statusList) {
+    public ContentRVAdapter(Context context, ArrayList<Status> statusList) {
         this.statusList = statusList;
         this.context = context;
     }
@@ -47,6 +47,7 @@ public class ContentRecyclerViewAdapter extends RecyclerView.Adapter<ContentRecy
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         setContent(viewHolder, position);
         getLargeImage(viewHolder, position);
+        clickUserImage(viewHolder,position);
     }
 
     private void setContent(ViewHolder viewHolder, int i) {
@@ -57,10 +58,11 @@ public class ContentRecyclerViewAdapter extends RecyclerView.Adapter<ContentRecy
         String device = Parse.parseXmlGetDevice(status.getSource());
         viewHolder.deviceTv.setText(device);
         viewHolder.commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
-        String url = status.getUser().getProfile_image_url();
+//        String url = status.getUser().getProfile_image_url();
+        String url = status.getUser().getAvatar_large();
         ImageLoader.getInstance().displayImage(url, viewHolder.userIb, ImageLoaderOptionsUtil.getWholeOptions());
         int numColumns = status.getPic_urls().size();
-        if (numColumns>=3){
+        if (numColumns >= 3) {
             numColumns = 3;
         }
         if (status.getPic_urls() != null) {
@@ -75,7 +77,7 @@ public class ContentRecyclerViewAdapter extends RecyclerView.Adapter<ContentRecy
             ImageGridAdapter imageGridAdapter = new ImageGridAdapter(context, status.getRetweeted_status().getPic_urls());
             viewHolder.retweetedContentGv.setAdapter(imageGridAdapter);
             int retweetedNumColumns = status.getPic_urls().size();
-            if (retweetedNumColumns>=3){
+            if (retweetedNumColumns >= 3) {
                 retweetedNumColumns = 3;
             }
             viewHolder.retweetedContentGv.setNumColumns(numColumns);
@@ -88,7 +90,16 @@ public class ContentRecyclerViewAdapter extends RecyclerView.Adapter<ContentRecy
         viewHolder.contentGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                gvOnClickListener.gvitemClick(ItemPosition, position);
+                gvOnClickListener.gvItemClick(ItemPosition, position);
+            }
+        });
+    }
+
+    private void clickUserImage(ViewHolder viewHolder, final int ItemPosition) {
+        viewHolder.userIb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ibOnClickListener.ibItemClick(ItemPosition);
             }
         });
     }
@@ -104,6 +115,10 @@ public class ContentRecyclerViewAdapter extends RecyclerView.Adapter<ContentRecy
 
     public void setGvOnClickListener(GvOnClickListener gvOnClickListener) {
         this.gvOnClickListener = gvOnClickListener;
+    }
+
+    public void setIbOnClickListener(IbOnClickListener ibOnClickListener) {
+        this.ibOnClickListener = ibOnClickListener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -148,7 +163,10 @@ public class ContentRecyclerViewAdapter extends RecyclerView.Adapter<ContentRecy
     }
 
     public static interface GvOnClickListener {
-        void gvitemClick(int itemPosition, int position);
+        void gvItemClick(int itemPosition, int position);
     }
 
+    public static interface IbOnClickListener {
+        void ibItemClick(int itemPostion);
+    }
 }

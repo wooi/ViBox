@@ -126,7 +126,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ContentActivity.class));
                 break;
             case R.id.page:
-                startActivity(new Intent(MainActivity.this,UserPage.class));
+                startActivity(new Intent(MainActivity.this, UserPage.class));
+                break;
+            case R.id.follow:
+                startActivity(new Intent(MainActivity.this, Follow.class));
                 break;
         }
         return true;

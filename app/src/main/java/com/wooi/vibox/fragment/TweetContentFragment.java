@@ -84,7 +84,6 @@ public class TweetContentFragment extends BaseFragment {
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         commentsRv.setLayoutManager(mLayoutManager);
         commentsRv.setHasFixedSize(true);
-
         appCompatActivity = (AppCompatActivity) mActivity;
         appCompatActivity.setSupportActionBar(toolbar);
         appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);

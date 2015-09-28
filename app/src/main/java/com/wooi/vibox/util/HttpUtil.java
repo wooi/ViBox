@@ -25,7 +25,7 @@ public class HttpUtil {
 
     public static void get(String url,RequestParams params ,ResponseHandlerInterface responseHandlerInterface) {
         params.put("access_token",TOKEN);
-//        params.put("uid",UID);
+        params.put("uid",UID);
         client.get(url,params,responseHandlerInterface);
         Log.i("URL",getUrlWithQueryString(true, url, params));
     }
