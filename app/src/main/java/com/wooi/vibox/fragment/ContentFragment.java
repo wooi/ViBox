@@ -2,13 +2,8 @@ package com.wooi.vibox.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.wooi.vibox.DataApplication;
 import com.wooi.vibox.R;
 import com.wooi.vibox.activity.TweetContent;
 import com.wooi.vibox.adapter.ContentRecyclerViewAdapter;
@@ -50,7 +46,8 @@ public class ContentFragment extends BaseFragment {
     RecyclerView contentRv;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Status> statusContentList;
-
+    private String URL = Content.FRIEDNDURL;
+    private final static String UID = DataApplication.getSingleton().getmUid();
 
     @Override
     View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,16 +61,16 @@ public class ContentFragment extends BaseFragment {
 
     @OnClick(R.id.testbt)
     public void click() {
-        getFriendTimeLine();
+        getTimeLine(URL,getParams());
     }
 
     @Override
     protected void initData() {
-        getFriendTimeLine();
+        getTimeLine(URL,getParams());
     }
 
-    private void getFriendTimeLine() {
-        HttpUtil.get(Content.FRIEDNDURL, new RequestParams(), new JsonHttpResponseHandler() {
+    protected void getTimeLine(String URL,RequestParams params) {
+        HttpUtil.get(URL,params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
@@ -92,10 +89,15 @@ public class ContentFragment extends BaseFragment {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
                 Log.i(this.toString(), errorResponse.toString());
-
             }
         });
 
+    }
+
+    protected RequestParams getParams(){
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("uid",UID);
+        return requestParams;
     }
 
     @Override

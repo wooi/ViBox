@@ -13,8 +13,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.wooi.vibox.R;
 import com.wooi.vibox.adapter.UserVPAdapter;
+import com.wooi.vibox.util.Content;
+import com.wooi.vibox.util.HttpUtil;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +56,6 @@ public class UserPageFragment extends BaseFragment {
     ViewPager userPageVp;
 
 
-
     private List<Fragment> listFragment;
     private AppCompatActivity appCompatActivity;
 
@@ -58,7 +64,7 @@ public class UserPageFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.user_page_fragment, container, false);
         ButterKnife.bind(this, view);
         listFragment = new ArrayList<Fragment>();
-        listFragment.add(new ContentFragment());
+        listFragment.add(new UserTimeLine("123"));
         listFragment.add(new ContentFragment());
         appCompatActivity = (AppCompatActivity) mActivity;
         UserVPAdapter userVPAdapter = new UserVPAdapter(appCompatActivity.getSupportFragmentManager(), listFragment, mContext);
@@ -72,6 +78,14 @@ public class UserPageFragment extends BaseFragment {
 
     }
 
+    private void getPageContent() {
+        HttpUtil.get(Content.USER_TIMELINE, new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+        });
+    }
 
     @Override
     public void onDestroyView() {
