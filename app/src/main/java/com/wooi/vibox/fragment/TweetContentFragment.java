@@ -156,7 +156,6 @@ public class TweetContentFragment extends BaseFragment {
                 Type listType = new TypeToken<ArrayList<Comments>>() {
                 }.getType();
                 ArrayList<Comments> commentArrayList = new Gson().fromJson(commentsJSONArray.toString(), listType);
-//                Logger.json(commentsJSONArray.toString());
                 CommentsAdapter commentsAdapter = new CommentsAdapter(getActivity().getApplicationContext(), commentArrayList);
                 commentsRv.setAdapter(commentsAdapter);
                 commentsRv.addItemDecoration(new SimpleDividerItemDecoration(getActivity().getApplicationContext()));

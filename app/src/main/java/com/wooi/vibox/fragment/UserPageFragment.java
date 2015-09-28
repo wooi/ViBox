@@ -1,9 +1,9 @@
 package com.wooi.vibox.fragment;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -45,23 +45,25 @@ public class UserPageFragment extends BaseFragment {
     LinearLayout followerLl;
     @Bind(R.id.tab_layout)
     TabLayout tabLayout;
-    @Bind(R.id.collapsing_toolbar_layout)
-    CollapsingToolbarLayout collapsingToolbarLayout;
     @Bind(R.id.user_page_vp)
     ViewPager userPageVp;
 
+
+
     private List<Fragment> listFragment;
     private AppCompatActivity appCompatActivity;
+
     @Override
     View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_page_fragment, container, false);
         ButterKnife.bind(this, view);
-        listFragment=new ArrayList<Fragment>();
+        listFragment = new ArrayList<Fragment>();
         listFragment.add(new ContentFragment());
         listFragment.add(new ContentFragment());
         appCompatActivity = (AppCompatActivity) mActivity;
-        UserVPAdapter userVPAdapter = new UserVPAdapter(appCompatActivity.getSupportFragmentManager(),listFragment,mContext);
+        UserVPAdapter userVPAdapter = new UserVPAdapter(appCompatActivity.getSupportFragmentManager(), listFragment, mContext);
         userPageVp.setAdapter(userVPAdapter);
+        tabLayout.setupWithViewPager(userPageVp);
         return view;
     }
 
@@ -75,5 +77,13 @@ public class UserPageFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
     }
 }
