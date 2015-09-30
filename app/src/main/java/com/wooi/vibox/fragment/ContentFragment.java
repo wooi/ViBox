@@ -2,6 +2,7 @@ package com.wooi.vibox.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -50,6 +51,7 @@ public class ContentFragment extends BaseFragment {
     private String URL = Content.FRIEDNDURL;
     private final static String UID = DataApplication.getSingleton().getmUid();
 
+
     @Override
     View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.content_fragment, container, false);
@@ -62,29 +64,22 @@ public class ContentFragment extends BaseFragment {
 
     @OnClick(R.id.testbt)
     public void click() {
-        getTimeLine(URL,getParams());
+        getTimeLine(URL, getParams());
     }
 
     @Override
     protected void initData() {
-        getTimeLine(URL,getParams());
+        getTimeLine(URL, getParams());
     }
 
-    protected void getTimeLine(String URL,RequestParams params) {
-        HttpUtil.get(URL,params, new JsonHttpResponseHandler() {
+    protected void getTimeLine(String URL, RequestParams params) {
+        HttpUtil.get(URL, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 JSONArray responseArray = GetJSONArray.getStatuses(response);
-                Type listType = new TypeToken<ArrayList<Status>>() {
-                }.getType();
-                ArrayList<Status> statusList = new Gson().fromJson(responseArray.toString(), listType);
-                statusContentList = statusList;
-                ContentRVAdapter adapter = new ContentRVAdapter(mContext, statusContentList);
-                contentRv.setAdapter(adapter);
-                adapter.setRvOnClickListener(new MyRvOnClickListener());
-                adapter.setGvOnClickListener(new MyGvOnClickListener());
-                adapter.setIbOnClickListener(new MyIbOnClickListener());
+                ArrayList<Status> statusList = getStatuses(responseArray);
+                setViewAdapter(statusList);
             }
 
             @Override
@@ -96,9 +91,29 @@ public class ContentFragment extends BaseFragment {
 
     }
 
-    protected RequestParams getParams(){
+    protected void setViewAdapter(ArrayList<Status> statusList) {
+        statusContentList = statusList;
+        ContentRVAdapter adapter = new ContentRVAdapter(mContext, statusContentList);
+        contentRv.setAdapter(adapter);
+        setListener(adapter);
+    }
+
+    protected void setListener(ContentRVAdapter adapter) {
+        adapter.setRvOnClickListener(new MyRvOnClickListener());
+        adapter.setGvOnClickListener(new MyGvOnClickListener());
+        adapter.setIbOnClickListener(new MyIbOnClickListener());
+    }
+
+    @Nullable
+    protected ArrayList<Status> getStatuses(JSONArray responseArray) {
+        Type listType = new TypeToken<ArrayList<Status>>() {
+        }.getType();
+        return new Gson().fromJson(responseArray.toString(), listType);
+    }
+
+    protected RequestParams getParams() {
         RequestParams requestParams = new RequestParams();
-        requestParams.put("uid",UID);
+        requestParams.put("uid", UID);
         return requestParams;
     }
 
@@ -108,7 +123,7 @@ public class ContentFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    private class MyRvOnClickListener implements ContentRVAdapter.RvOnClickListner {
+    protected class MyRvOnClickListener implements ContentRVAdapter.RvOnClickListner {
 
         @Override
         public void rvItemClick(View v, int posistion) {
@@ -119,7 +134,7 @@ public class ContentFragment extends BaseFragment {
         }
     }
 
-    private class MyGvOnClickListener implements ContentRVAdapter.GvOnClickListener {
+    protected class MyGvOnClickListener implements ContentRVAdapter.GvOnClickListener {
 
         @Override
         public void gvItemClick(int itemPosition, int position) {
@@ -128,7 +143,7 @@ public class ContentFragment extends BaseFragment {
         }
     }
 
-    private class MyIbOnClickListener implements ContentRVAdapter.IbOnClickListener{
+    protected class MyIbOnClickListener implements ContentRVAdapter.IbOnClickListener {
         @Override
         public void ibItemClick(int itemPostion) {
 //            Status status = statusContentList.get(itemPostion);

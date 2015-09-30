@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2015/9/17.
  */
 public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.ViewHolder> {
-    private ArrayList<Status> statusList;
+    protected ArrayList<Status> statusList;
     private Context context;
     private RvOnClickListner rvOnClickListner = null;
     private GvOnClickListener gvOnClickListener = null;
@@ -50,15 +50,15 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
         clickUserImage(viewHolder,position);
     }
 
-    private void setContent(ViewHolder viewHolder, int i) {
+    protected void setContent(ViewHolder viewHolder, int i) {
         Status status = statusList.get(i);
-        viewHolder.contentTv.setText(status.getText());
-        viewHolder.timeTv.setText(status.getCreated_at());
-        viewHolder.userTv.setText(status.getUser().getName());
-        String device = Parse.parseXmlGetDevice(status.getSource());
-        viewHolder.deviceTv.setText(device);
+        setAllText(viewHolder, status);
+        setImage(viewHolder, status);
+
+    }
+
+    protected void setImage(ViewHolder viewHolder, Status status) {
         viewHolder.commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
-//        String url = status.getUser().getProfile_image_url();
         String url = status.getUser().getAvatar_large();
         ImageLoader.getInstance().displayImage(url, viewHolder.userIb, ImageLoaderOptionsUtil.getWholeOptions());
         int numColumns = status.getPic_urls().size();
@@ -83,7 +83,14 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
             viewHolder.retweetedContentGv.setNumColumns(numColumns);
             viewHolder.retweetedContentGv.setNumColumns(retweetedNumColumns);
         }
+    }
 
+    protected void setAllText(ViewHolder viewHolder, Status status) {
+        viewHolder.contentTv.setText(status.getText());
+        viewHolder.timeTv.setText(status.getCreated_at());
+        viewHolder.userTv.setText(status.getUser().getName());
+        String device = Parse.parseXmlGetDevice(status.getSource());
+        viewHolder.deviceTv.setText(device);
     }
 
     private void getLargeImage(ViewHolder viewHolder, final int ItemPosition) {

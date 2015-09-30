@@ -36,7 +36,8 @@ public class FollowingFragment extends BaseFragment {
     @Bind(R.id.follow_rv)
     RecyclerView followRv;
     private LinearLayoutManager mLayoutManager;
-    private String URL ;
+    private String URL;
+
     @Override
     View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.follow_fragment_layout, null);

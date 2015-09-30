@@ -25,5 +25,10 @@
         android:id="@+id/follow"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/page" />
+        android:title="@string/follow" />
+    <item
+        android:id="@+id/favorites"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/favorites" />
 </menu>

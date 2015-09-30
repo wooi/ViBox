@@ -38,5 +38,15 @@ public class GetJSONArray {
         return followingJSONArray;
     }
 
+    public static JSONArray getFavoritesList(JSONObject jsonObject) {
+        JSONArray favoritesJSONArray = null;
+        try {
+            favoritesJSONArray = jsonObject.getJSONArray("favorites");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return favoritesJSONArray;
+    }
+
 }
 
