@@ -31,7 +31,7 @@ public class FavoritesFragment extends ContentFragment {
                 super.onSuccess(statusCode, headers, response);
                 JSONArray favoritesList = GetJSONArray.getFavoritesList(response);
                 ArrayList<Status> statusList = getStatuses(favoritesList);
-
+                //
             }
         });
     }
