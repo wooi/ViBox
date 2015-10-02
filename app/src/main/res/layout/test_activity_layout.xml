@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/favorites_fm"
-        android:name="com.wooi.vibox.fragment.mentionsFragment"
+        android:name="com.wooi.vibox.fragment.CommentsByMeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></fragment>
 

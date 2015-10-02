@@ -24,20 +24,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/comment_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="加油"/>
-                <View
-                    style="@style/Divider"
-                    ></View>
+                    android:text="加油"
+                    android:textColor="@color/black" />
+
+                <View style="@style/Divider"></View>
 
                 <TextView
                     android:id="@+id/reply_comment_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$xx : 這次是我自己打的字。我是腦血管動脈瘤爆裂，現在已可以說話、吃飯，就差還不能走路。好多認識、不認識的朋友寄來卡片為我祈福，讓原本香港醫院宣佈沒救的我，意外能恢復到這階段。最讓我意外的是李宗盛寄來的卡片，我和他原本不認識，他是看到新聞才會主動寄來鼓勵卡片，總之謝謝所有關心我的朋友們。"/>
+                    android:textColor="@color/black"
+                    android:text="$xx : 這次是我自己打的字。我是腦血管動脈瘤爆裂，現在已可以說話、吃飯，就差還不能走路。好多認識、不認識的朋友寄來卡片為我祈福，讓原本香港醫院宣佈沒救的我，意外能恢復到這階段。最讓我意外的是李宗盛寄來的卡片，我和他原本不認識，他是看到新聞才會主動寄來鼓勵卡片，總之謝謝所有關心我的朋友們。" />
             </LinearLayout>
 
         </RelativeLayout>
