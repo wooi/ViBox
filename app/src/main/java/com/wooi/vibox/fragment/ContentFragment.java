@@ -53,7 +53,7 @@ public class ContentFragment extends BaseFragment {
 
 
     @Override
-    View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.content_fragment, container, false);
         ButterKnife.bind(this, view);
         mLayoutManager = new LinearLayoutManager(mContext);
@@ -71,6 +71,7 @@ public class ContentFragment extends BaseFragment {
     protected void initData() {
         getTimeLine(URL, getParams());
     }
+
 
     protected void getTimeLine(String URL, RequestParams params) {
         HttpUtil.get(URL, params, new JsonHttpResponseHandler() {

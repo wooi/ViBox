@@ -30,6 +30,13 @@ public class Comments {
     public String idstr;
 //    public Object status;
     public int floor_num;
+    /**
+     * status : {}
+     * reply_comment : {}
+     */
+
+    private Status status;
+    private ReplyComment reply_comment;
 
     public String getCreated_at() {
         return created_at;
@@ -110,4 +117,22 @@ public class Comments {
     public void setFloor_num(int floor_num) {
         this.floor_num = floor_num;
     }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setReply_comment(ReplyComment reply_comment) {
+        this.reply_comment = reply_comment;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public ReplyComment getReply_comment() {
+        return reply_comment;
+    }
+
+
 }

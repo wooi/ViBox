@@ -36,7 +36,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void initData();
 
-    abstract View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+    protected abstract View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
 
     @Override

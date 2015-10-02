@@ -76,7 +76,7 @@ public class TweetContentFragment extends BaseFragment {
 
 
     @Override
-    View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tweet_content_fragment_layout, container, false);
         ButterKnife.bind(this, view);
         Intent intent = mActivity.getIntent();

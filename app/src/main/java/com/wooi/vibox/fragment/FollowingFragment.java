@@ -39,7 +39,7 @@ public class FollowingFragment extends BaseFragment {
     private String URL;
 
     @Override
-    View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.follow_fragment_layout, null);
         ButterKnife.bind(this, view);
         mLayoutManager = new LinearLayoutManager(mContext);

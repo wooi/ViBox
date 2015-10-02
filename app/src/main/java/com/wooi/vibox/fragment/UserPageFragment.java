@@ -62,7 +62,7 @@ public class UserPageFragment extends BaseFragment {
     private AppCompatActivity appCompatActivity;
     private String UID = DataApplication.getSingleton().getmUid();
     @Override
-    View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_page_fragment, container, false);
         ButterKnife.bind(this, view);
 //        Intent intent = mActivity.getIntent();

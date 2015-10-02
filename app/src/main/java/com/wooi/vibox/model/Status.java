@@ -67,6 +67,16 @@ public class Status implements Serializable{
     public String rid;
     public int userType;
 
+    public String deleted;
+
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
+    }
+
     public String getCreated_at() {
         return created_at;
     }

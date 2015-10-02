@@ -11,4 +11,7 @@ public class Content {
     public final static String USER_FRIENDS_SHIPS = "https://api.weibo.com/2/friendships/friends.json";
     public final static String USER_FOLLOWER = "https://api.weibo.com/2/friendships/followers.json";
     public final static String FAVORITES="https://api.weibo.com/2/favorites.json";
+    public final static String MENTIONS ="https://api.weibo.com/2/statuses/mentions.json";
+    public final static String COMMENTSBYME ="https://api.weibo.com/2/comments/by_me.json";
+
 }

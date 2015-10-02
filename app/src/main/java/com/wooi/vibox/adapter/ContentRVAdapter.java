@@ -31,6 +31,10 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
     private GvOnClickListener gvOnClickListener = null;
     private IbOnClickListener ibOnClickListener = null;
 
+    public ContentRVAdapter(Context context) {
+        this.context = context;
+    }
+
     public ContentRVAdapter(Context context, ArrayList<Status> statusList) {
         this.statusList = statusList;
         this.context = context;
@@ -47,7 +51,7 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         setContent(viewHolder, position);
         getLargeImage(viewHolder, position);
-        clickUserImage(viewHolder,position);
+        clickUserImage(viewHolder, position);
     }
 
     protected void setContent(ViewHolder viewHolder, int i) {
