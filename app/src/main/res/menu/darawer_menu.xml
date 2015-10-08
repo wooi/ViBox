@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+
+    <item android:id="@+id/action_componse"
+        android:title="关注的人"
+        android:icon="@drawable/ic_star_white_24dp"/>
+
+    <item android:id="@+id/action_draft"
+        android:title="我的朋友"
+        android:icon="@drawable/ic_star_white_24dp"/>
+
+    <item android:id="@+id/action_messages"
+        android:title="我的同学
+        "
+        android:icon="@drawable/ic_star_white_24dp"/>
+
+    <item android:id="@+id/action_settings"
+        android:title="我的同事"
+        android:icon="@drawable/ic_star_white_24dp"/>
+</menu>

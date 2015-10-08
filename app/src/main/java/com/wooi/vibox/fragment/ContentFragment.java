@@ -42,8 +42,8 @@ import butterknife.OnClick;
  * Created by Administrator on 2015/9/16.
  */
 public class ContentFragment extends BaseFragment {
-    @Bind(R.id.testbt)
-    Button testbt;
+//    @Bind(R.id.testbt)
+//    Button testbt;
     @Bind(R.id.content_rv)
     RecyclerView contentRv;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -62,10 +62,10 @@ public class ContentFragment extends BaseFragment {
         return view;
     }
 
-    @OnClick(R.id.testbt)
-    public void click() {
-        getTimeLine(URL, getParams());
-    }
+//    @OnClick(R.id.testbt)
+//    public void click() {
+//        getTimeLine(URL, getParams());
+//    }
 
     @Override
     protected void initData() {
