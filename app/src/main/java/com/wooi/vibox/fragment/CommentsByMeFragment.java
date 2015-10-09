@@ -36,6 +36,10 @@ public class CommentsByMeFragment extends BaseFragment {
     @Bind(R.id.comments_rv)
     RecyclerView commentsRv;
 
+    public static CommentsByMeFragment newInstance(int page,String title){
+        CommentsByMeFragment commentsByMeFragment = new CommentsByMeFragment();
+        return commentsByMeFragment;
+    }
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.comments_fragment_layout, container, false);

@@ -1,5 +1,6 @@
 package com.wooi.vibox.fragment;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -51,6 +52,10 @@ public class ContentFragment extends BaseFragment {
     private String URL = Content.FRIEDNDURL;
     private final static String UID = DataApplication.getSingleton().getmUid();
 
+    public static ContentFragment newInstance(int page,String title){
+        ContentFragment contentFragment = new ContentFragment();
+        return contentFragment;
+    }
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -21,11 +21,11 @@
             app:title="@string/hello_world">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:gravity="right"
+                android:layout_gravity="right"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -49,12 +49,17 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <fragment
-            android:id="@+id/content_fm"
-            android:name="com.wooi.vibox.fragment.ContentFragment"
-            android:layout_width="match_parent"
+        <!--<fragment-->
+            <!--android:id="@+id/content_fm"-->
+            <!--android:name="com.wooi.vibox.fragment.ContentFragment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--tools:layout="@layout/content_fragment"></fragment>-->
+        <android.support.v4.view.ViewPager
+            android:id="@+id/content_vp"
             android:layout_height="match_parent"
-            tools:layout="@layout/content_fragment"></fragment>
+            android:layout_width="match_parent"
+            ></android.support.v4.view.ViewPager>
     </LinearLayout>
 
 

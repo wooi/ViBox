@@ -25,6 +25,10 @@ import java.util.ArrayList;
 public class FavoritesFragment extends ContentFragment {
     private String URL = Content.FAVORITES;
 
+    public static FavoritesFragment newInstance(int page,String title){
+        FavoritesFragment favoritesFragment = new FavoritesFragment();
+        return favoritesFragment;
+    }
     @Override
     protected void initData() {
         getFavorites();

@@ -2,11 +2,11 @@ package com.wooi.vibox.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +16,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wooi.vibox.R;
+import com.wooi.vibox.adapter.ContentVPAdapter;
 import com.wooi.vibox.logger.Logger;
 import com.wooi.vibox.model.User;
 import com.wooi.vibox.util.Content;
@@ -38,9 +39,13 @@ public class ContentActivity extends AppCompatActivity {
     NavigationView navigationView;
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-    private ImageView nav_header_bg,nav_header_user_imager;
+    @Bind(R.id.content_vp)
+    ViewPager contentVp;
+    private ImageView nav_header_bg, nav_header_user_imager;
     private TextView nav_header_user_name_tv;
-
+    private static final int CONTENTFRAGMENT = 0;
+    private static final int COMMENTSFRAGMENT = 1;
+    private static final int FAVORITESFRAGMENT = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +55,7 @@ public class ContentActivity extends AppCompatActivity {
         initToolbar();
         initDrawerView();
         setDrawerContent();
+        initViewPage();
     }
 
     private void findViewById() {
@@ -59,9 +65,11 @@ public class ContentActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getResources().getString(R.string.home));
     }
 
     private void initDrawerView() {
@@ -84,7 +92,41 @@ public class ContentActivity extends AppCompatActivity {
                 User user = new Gson().fromJson(response.toString(), User.class);
                 nav_header_user_name_tv.setText(user.getName());
                 ImageLoader.getInstance().displayImage(user.getCover_image_phone(), nav_header_bg, ImageLoaderOptionsUtil.getWholeOptions());
-                ImageLoader.getInstance().displayImage(user.getAvatar_large(),nav_header_user_imager,ImageLoaderOptionsUtil.getWholeOptions());
+                ImageLoader.getInstance().displayImage(user.getAvatar_large(), nav_header_user_imager, ImageLoaderOptionsUtil.getWholeOptions());
+            }
+        });
+    }
+
+    private void initViewPage(){
+        ContentVPAdapter contentVPAdapter = new ContentVPAdapter(getSupportFragmentManager());
+        contentVp.setAdapter(contentVPAdapter);
+        contentVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Logger.i(position+"");
+                String title = null;
+                switch (position){
+                    case CONTENTFRAGMENT:
+                        title = getResources().getString(R.string.home);
+                        break;
+                    case COMMENTSFRAGMENT:
+                        title = getResources().getString(R.string.comments);
+                        break;
+                    case FAVORITESFRAGMENT:
+                        title = getResources().getString(R.string.favorites);
+                        break;
+                }
+                getSupportActionBar().setTitle(title);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
     }
