@@ -22,7 +22,7 @@ public class FavoritesRVAdapter extends ContentRVAdapter {
         Status status = favorite.getStatus();
         if(status.getDeleted()==null && status.getRetweeted_status().getDeleted()==null){
             setAllText(viewHolder,status);
-            setImage(viewHolder,status);
+            setContentImage(viewHolder, status);
         }
 
     }

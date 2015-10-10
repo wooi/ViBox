@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -50,44 +52,49 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         setContent(viewHolder, position);
-        getLargeImage(viewHolder, position);
+        openLargeImage(viewHolder, position);
         clickUserImage(viewHolder, position);
     }
 
     protected void setContent(ViewHolder viewHolder, int i) {
         Status status = statusList.get(i);
         setAllText(viewHolder, status);
-        setImage(viewHolder, status);
+        setContentImage(viewHolder, status);
+        setRetwettedContent(viewHolder, status);
+    }
+
+    protected void setContentImage(ViewHolder viewHolder, Status status) {
+        String url = status.getUser().getAvatar_large();
+        ImageLoader.getInstance().displayImage(url, viewHolder.userIb, ImageLoaderOptionsUtil.getWholeOptions());
+        if (status.getPic_urls()!=null) {
+            viewHolder.contentGv.setVisibility(View.VISIBLE);
+            ImageGridAdapter imageGridAdapter = new ImageGridAdapter(context, status.getPic_urls());
+            viewHolder.contentGv.setAdapter(imageGridAdapter);
+        }
 
     }
 
-    protected void setImage(ViewHolder viewHolder, Status status) {
-        viewHolder.commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
-        String url = status.getUser().getAvatar_large();
-        ImageLoader.getInstance().displayImage(url, viewHolder.userIb, ImageLoaderOptionsUtil.getWholeOptions());
-        int numColumns = status.getPic_urls().size();
-        if (numColumns >= 3) {
-            numColumns = 3;
-        }
-        if (status.getPic_urls() != null) {
-            ImageGridAdapter imageGridAdapter = new ImageGridAdapter(context, status.getPic_urls());
-            viewHolder.contentGv.setAdapter(imageGridAdapter);
-            viewHolder.contentGv.setNumColumns(numColumns);
-        }
+    private void setRetwettedContent(ViewHolder viewHolder, Status status) {
         if (status.getRetweeted_status() != null) {
+            viewHolder.retweeted_content_ly.setVisibility(View.VISIBLE);
             viewHolder.retweetedContentTv.setText("@" + status.getRetweeted_status().getUser().getName() + " : " + status.getRetweeted_status().getText());
             viewHolder.retweetedCommentsRepostCount.setText(status.getRetweeted_status().getReposts_count() + "条转发 & " +
                     status.getRetweeted_status().getComments_count() + "条回复");
-            ImageGridAdapter imageGridAdapter = new ImageGridAdapter(context, status.getRetweeted_status().getPic_urls());
-            viewHolder.retweetedContentGv.setAdapter(imageGridAdapter);
-            int retweetedNumColumns = status.getPic_urls().size();
-            if (retweetedNumColumns >= 3) {
-                retweetedNumColumns = 3;
-            }
-            viewHolder.retweetedContentGv.setNumColumns(numColumns);
-            viewHolder.retweetedContentGv.setNumColumns(retweetedNumColumns);
+            setRetwettedImage(viewHolder, status);
+        } else {
+            viewHolder.retweeted_content_ly.setVisibility(View.GONE);
         }
     }
+
+    private void setRetwettedImage(ViewHolder viewHolder, Status status) {
+        if (status.getRetweeted_status().getPic_urls() != null) {
+            viewHolder.retweetedThumbnailIv.setVisibility(View.GONE);
+            viewHolder.retweetedContentGv.setVisibility(View.VISIBLE);
+            ImageGridAdapter imageGridAdapter = new ImageGridAdapter(context, status.getRetweeted_status().getPic_urls());
+            viewHolder.retweetedContentGv.setAdapter(imageGridAdapter);
+        }
+    }
+
 
     protected void setAllText(ViewHolder viewHolder, Status status) {
         viewHolder.contentTv.setText(status.getText());
@@ -95,9 +102,11 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
         viewHolder.userTv.setText(status.getUser().getName());
         String device = Parse.parseXmlGetDevice(status.getSource());
         viewHolder.deviceTv.setText(device);
+        viewHolder.commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
+
     }
 
-    private void getLargeImage(ViewHolder viewHolder, final int ItemPosition) {
+    private void openLargeImage(ViewHolder viewHolder, final int ItemPosition) {
         viewHolder.contentGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -153,6 +162,12 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
         TextView retweetedCommentsRepostCount;
         @Bind(R.id.comments_repost_count)
         TextView commentsRepostCount;
+        @Bind(R.id.thumbnail_iv)
+        ImageView thumbnailIv;
+        @Bind(R.id.retweeted_content_ly)
+        LinearLayout retweeted_content_ly;
+        @Bind(R.id.retweeted_thumbnail_iv)
+        ImageView retweetedThumbnailIv;
 
         public ViewHolder(View itemView) {
             super(itemView);
