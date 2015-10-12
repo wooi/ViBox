@@ -65,7 +65,6 @@ public class ContentActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

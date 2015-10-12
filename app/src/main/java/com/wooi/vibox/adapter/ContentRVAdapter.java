@@ -66,7 +66,7 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
     protected void setContentImage(ViewHolder viewHolder, Status status) {
         String url = status.getUser().getAvatar_large();
         ImageLoader.getInstance().displayImage(url, viewHolder.userIb, ImageLoaderOptionsUtil.getWholeOptions());
-        if (status.getPic_urls()!=null) {
+        if (status.getPic_urls() != null) {
             viewHolder.contentGv.setVisibility(View.VISIBLE);
             ImageGridAdapter imageGridAdapter = new ImageGridAdapter(context, status.getPic_urls());
             viewHolder.contentGv.setAdapter(imageGridAdapter);

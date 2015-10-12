@@ -16,12 +16,14 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/blue"
+            android:background="@color/primary_toolbar_bg"
             android:paddingRight="10dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title="@string/hello_world">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
@@ -29,37 +31,33 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_logo" />
+                    android:layout_weight="1"
+                    android:background="@mipmap/home" />
 
                 <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_logo" />
+                    android:layout_weight="1"
+                    android:background="@mipmap/comment" />
 
                 <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_logo" />
+                    android:layout_weight="1"
+                    android:background="@mipmap/favorites" />
             </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
 
-        <!--<fragment-->
-            <!--android:id="@+id/content_fm"-->
-            <!--android:name="com.wooi.vibox.fragment.ContentFragment"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--tools:layout="@layout/content_fragment"></fragment>-->
         <android.support.v4.view.ViewPager
             android:id="@+id/content_vp"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            ></android.support.v4.view.ViewPager>
+            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
     </LinearLayout>
 
 
@@ -69,7 +67,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header_layout"
-        app:menu="@menu/darawer_menu">
+        app:menu="@menu/darawer_menu"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
     </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>

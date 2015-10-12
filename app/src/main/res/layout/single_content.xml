@@ -15,7 +15,7 @@
         android:layout_marginLeft="@dimen/framglayou_magin_right_left_single_content"
         android:layout_marginRight="@dimen/framglayou_magin_right_left_single_content"
         android:layout_marginTop="@dimen/framglayou_margin_buttom_top_single_content"
-        android:background="@color/blue">
+        android:background="@color/primary_toolbar_bg">
 
         <RelativeLayout
 

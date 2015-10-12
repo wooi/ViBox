@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
 
-
-    <style name="AppBaseTheme." parent="Theme.AppCompat.NoActionBar">
-
-    </style>
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
 
     <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:colorPrimaryDark">@color/deep_blue</item>
-        <item name="colorPrimary">@color/blue</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimary">@color/primary_toolbar_bg</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="android:textColorPrimary">@android:color/primary_text_dark_nodisable</item>
     </style>
+
 </resources>

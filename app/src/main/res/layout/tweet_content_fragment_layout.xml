@@ -13,8 +13,7 @@
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentScrim="#30469b"
-            app:expandedTitleTextAppearance="@android:color/transparent"
+            app:contentScrim="@color/primary_toolbar_bg"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <include layout="@layout/single_content" />
@@ -24,7 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|enterAlways" />
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
         </android.support.design.widget.CollapsingToolbarLayout>
 
 

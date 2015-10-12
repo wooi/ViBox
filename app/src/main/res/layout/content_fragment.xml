@@ -5,12 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <!--<Button-->
-    <!--android:id="@+id/testbt"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content" />-->
-
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
@@ -26,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_star_white_24dp"
+            android:src="@mipmap/pen"
+            app:backgroundTint="@color/fab"
             app:layout_anchor="@id/content_rv"
             app:layout_anchorGravity="bottom|right|end" />
 
