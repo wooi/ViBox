@@ -2,8 +2,9 @@ package com.wooi.vibox.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -69,6 +72,16 @@ public class TweetContentFragment extends BaseFragment {
     TextView commentsRepostCount;
     @Bind(R.id.comments_rv)
     RecyclerView commentsRv;
+    @Bind(R.id.thumbnail_iv)
+    ImageView thumbnailIv;
+    @Bind(R.id.content_ly)
+    LinearLayout contentLy;
+    @Bind(R.id.retweeted_thumbnail_iv)
+    ImageView retweetedThumbnailIv;
+    @Bind(R.id.retweeted_content_ly)
+    LinearLayout retweeted_content_ly;
+    @Bind(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout collapsingToolbarLayout;
 
     private AppCompatActivity appCompatActivity;
     private Status status;
@@ -88,10 +101,9 @@ public class TweetContentFragment extends BaseFragment {
         appCompatActivity.setSupportActionBar(toolbar);
         appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new MytoolBarClickListener());
-
+        collapsingToolbarLayout.setPadding(0, getStatusBarHeight(), 0, 0);
         return view;
     }
-
 
     @Override
     protected void initData() {
@@ -100,36 +112,67 @@ public class TweetContentFragment extends BaseFragment {
     }
 
     private void getSingleContent() {
+//        contentTv.setText(status.getText());
+//        timeTv.setText(status.getCreated_at());
+//        userTv.setText(status.getUser().getName());
+//        String device = Parse.parseXmlGetDevice(status.getSource());
+//        deviceTv.setText(device);
+//        commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
+//        String url = status.getUser().getProfile_image_url();
+//
+//        ImageLoader.getInstance().displayImage(url, userIb, ImageLoaderOptionsUtil.getWholeOptions());
+//        if (status.getRetweeted_status() != null) {
+//            retweetedContentTv.setText("@" + status.getRetweeted_status().getUser().getName() + " : " + status.getRetweeted_status().getText());
+//            retweetedCommentsRepostCount.setText(status.getRetweeted_status().getReposts_count() + "条转发 & " +
+//                    status.getRetweeted_status().getComments_count() + "条回复");
+//            ImageGridAdapter imageGridAdapter = new ImageGridAdapter(mContext, status.getRetweeted_status().getPic_urls());
+//            retweetedContentGv.setAdapter(imageGridAdapter);
+//        }
+        setAllText(status);
+        setContentImage(status);
+        setRetwettedContent(status);
+        setRetwettedContent(status);
+    }
+
+    protected void setAllText(Status status) {
         contentTv.setText(status.getText());
         timeTv.setText(status.getCreated_at());
         userTv.setText(status.getUser().getName());
         String device = Parse.parseXmlGetDevice(status.getSource());
         deviceTv.setText(device);
         commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
-        String url = status.getUser().getProfile_image_url();
+    }
+
+    protected void setContentImage(Status status) {
+        String url = status.getUser().getAvatar_large();
         ImageLoader.getInstance().displayImage(url, userIb, ImageLoaderOptionsUtil.getWholeOptions());
-//                int numColumns = status.getPic_urls().size();
-//                if (numColumns >= 3) {
-//                    numColumns = 3;
-//                }
-//                if (status.getPic_urls() != null) {
-//                    ImageGridAdapter imageGridAdapter = new ImageGridAdapter(mContext, status.getPic_urls());
-//                    contentGv.setAdapter(imageGridAdapter);
-//                    contentGv.setNumColumns(numColumns);
-//                }
+        if (status.getPic_urls() != null) {
+            contentGv.setVisibility(View.VISIBLE);
+            ImageGridAdapter imageGridAdapter = new ImageGridAdapter(mContext, status.getPic_urls());
+            contentGv.setAdapter(imageGridAdapter);
+        }
+
+    }
+
+    private void setRetwettedContent(Status status) {
         if (status.getRetweeted_status() != null) {
+            retweeted_content_ly.setVisibility(View.VISIBLE);
             retweetedContentTv.setText("@" + status.getRetweeted_status().getUser().getName() + " : " + status.getRetweeted_status().getText());
             retweetedCommentsRepostCount.setText(status.getRetweeted_status().getReposts_count() + "条转发 & " +
                     status.getRetweeted_status().getComments_count() + "条回复");
+            setRetwettedImage(status);
+        } else {
+            retweeted_content_ly.setVisibility(View.GONE);
+        }
+    }
+
+    private void setRetwettedImage(Status status) {
+        if (status.getRetweeted_status().getPic_urls() != null) {
+            retweetedThumbnailIv.setVisibility(View.GONE);
+            retweetedContentGv.setVisibility(View.VISIBLE);
             ImageGridAdapter imageGridAdapter = new ImageGridAdapter(mContext, status.getRetweeted_status().getPic_urls());
             retweetedContentGv.setAdapter(imageGridAdapter);
-//                    int retweetedNumColumns = status.getPic_urls().size();
-//                    if (retweetedNumColumns >= 3) {
-//                        retweetedNumColumns = 3;
-//                    }
-//                    retweetedContentGv.setNumColumns(retweetedNumColumns);
         }
-
     }
 
 
@@ -162,6 +205,14 @@ public class TweetContentFragment extends BaseFragment {
         });
     }
 
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 
     private class MytoolBarClickListener implements View.OnClickListener {
 

@@ -73,8 +73,8 @@ public class ContentActivity extends AppCompatActivity {
 
     private void initDrawerView() {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer_content, R.string.close_drawer_content);
-        toggle.syncState();
         drawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {

@@ -1,10 +1,12 @@
 package com.wooi.vibox.adapter;
 
 import android.content.Context;
+import android.graphics.Outline;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -63,6 +65,15 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
         setRetwettedContent(viewHolder, status);
     }
 
+    protected void setAllText(ViewHolder viewHolder, Status status) {
+        viewHolder.contentTv.setText(status.getText());
+        viewHolder.timeTv.setText(status.getCreated_at());
+        viewHolder.userTv.setText(status.getUser().getName());
+        String device = Parse.parseXmlGetDevice(status.getSource());
+        viewHolder.deviceTv.setText(device);
+        viewHolder.commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
+    }
+
     protected void setContentImage(ViewHolder viewHolder, Status status) {
         String url = status.getUser().getAvatar_large();
         ImageLoader.getInstance().displayImage(url, viewHolder.userIb, ImageLoaderOptionsUtil.getWholeOptions());
@@ -93,17 +104,6 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
             ImageGridAdapter imageGridAdapter = new ImageGridAdapter(context, status.getRetweeted_status().getPic_urls());
             viewHolder.retweetedContentGv.setAdapter(imageGridAdapter);
         }
-    }
-
-
-    protected void setAllText(ViewHolder viewHolder, Status status) {
-        viewHolder.contentTv.setText(status.getText());
-        viewHolder.timeTv.setText(status.getCreated_at());
-        viewHolder.userTv.setText(status.getUser().getName());
-        String device = Parse.parseXmlGetDevice(status.getSource());
-        viewHolder.deviceTv.setText(device);
-        viewHolder.commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
-
     }
 
     private void openLargeImage(ViewHolder viewHolder, final int ItemPosition) {
