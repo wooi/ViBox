@@ -112,22 +112,6 @@ public class TweetContentFragment extends BaseFragment {
     }
 
     private void getSingleContent() {
-//        contentTv.setText(status.getText());
-//        timeTv.setText(status.getCreated_at());
-//        userTv.setText(status.getUser().getName());
-//        String device = Parse.parseXmlGetDevice(status.getSource());
-//        deviceTv.setText(device);
-//        commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
-//        String url = status.getUser().getProfile_image_url();
-//
-//        ImageLoader.getInstance().displayImage(url, userIb, ImageLoaderOptionsUtil.getWholeOptions());
-//        if (status.getRetweeted_status() != null) {
-//            retweetedContentTv.setText("@" + status.getRetweeted_status().getUser().getName() + " : " + status.getRetweeted_status().getText());
-//            retweetedCommentsRepostCount.setText(status.getRetweeted_status().getReposts_count() + "条转发 & " +
-//                    status.getRetweeted_status().getComments_count() + "条回复");
-//            ImageGridAdapter imageGridAdapter = new ImageGridAdapter(mContext, status.getRetweeted_status().getPic_urls());
-//            retweetedContentGv.setAdapter(imageGridAdapter);
-//        }
         setAllText(status);
         setContentImage(status);
         setRetwettedContent(status);
@@ -219,7 +203,6 @@ public class TweetContentFragment extends BaseFragment {
         @Override
         public void onClick(View v) {
             onBackPress();
-
         }
     }
 }

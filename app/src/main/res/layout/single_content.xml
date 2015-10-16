@@ -14,6 +14,7 @@
         android:layout_width="@dimen/user_imager_width"
         android:layout_height="@dimen/user_imager_height"
         android:adjustViewBounds="true"
+        android:background="@color/transparent"
         android:scaleType="centerInside" />
 
     <include layout="@layout/include_device_time"></include>

@@ -21,14 +21,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -38,10 +39,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.utils.LogUtil;
 import com.wooi.vibox.R;
 import com.wooi.vibox.adapter.ImageGridAdapter;
-import com.wooi.vibox.logger.Logger;
 import com.wooi.vibox.model.Status;
 import com.wooi.vibox.openapi.WBAuthActivity;
 import com.wooi.vibox.openapi.WBOpenAPIActivity;
+import com.wooi.vibox.ui.LinkEnableTextView;
 import com.wooi.vibox.util.Content;
 import com.wooi.vibox.util.GetJSONArray;
 import com.wooi.vibox.util.HttpUtil;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.time_tv)
     TextView timeTv;
     @Bind(R.id.content_tv)
-    TextView contentTv;
+    LinkEnableTextView contentTv;
     @Bind(R.id.retweeted_content_tv)
     TextView retweetedContentTv;
     @Bind(R.id.retweeted_comments_repost_count)
@@ -140,7 +141,15 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button)
     public void button() {
-        getFriendTimeLine();
+//        getFriendTimeLine();
+        String text = "This is a #test of regular expressions with http://example.com links as used in @twitter \'for  performing various operations based on the links this handles multiple links like http://this_is_fun.com and #Awesomess and @Cool";
+        contentTv.gatherLinksForText(text);
+        contentTv.setOnTextLinkedClickListener(new LinkEnableTextView.TextLinkClickListener() {
+            @Override
+            public void onTextLinkClick(View textView, String clickedString) {
+                Toast.makeText(getApplicationContext(),clickedString,Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
@@ -159,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 String userName = firstStatus.getUser().getName();
                 String device = Parse.parseXmlGetDevice(firstStatus.getSource());
                 timeTv.setText(creaded);
-                contentTv.setText(text);
+                contentTv.gatherLinksForText(text);
                 userTv.setText(userName);
                 deviceTv.setText(device);
                 commentsRepostCount.setText(firstStatus.getReposts_count() + "条转发 & " + firstStatus.getComments_count() + "条回复");

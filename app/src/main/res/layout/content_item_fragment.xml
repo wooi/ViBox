@@ -24,6 +24,8 @@
                 android:id="@+id/user_ib"
                 android:layout_width="@dimen/user_imager_width"
                 android:layout_height="@dimen/user_imager_height"
+                android:layout_gravity="center_vertical"
+                android:background="@color/transparent"
                 android:adjustViewBounds="true"
                 android:scaleType="centerInside" />
 

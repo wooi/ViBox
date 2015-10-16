@@ -92,11 +92,12 @@
                 android:layout_toRightOf="@id/user_ib"
                 android:orientation="vertical">
 
-                <TextView
+                <com.wooi.vibox.ui.LinkEnableTextView
                     android:id="@+id/content_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/user_ib"
+                    android:textColorLink="@color/blue"
                     android:textSize="@dimen/conent_text_size" />
 
                 <LinearLayout

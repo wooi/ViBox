@@ -1,12 +1,10 @@
 package com.wooi.vibox.adapter;
 
 import android.content.Context;
-import android.graphics.Outline;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewOutlineProvider;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -17,6 +15,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wooi.vibox.R;
 import com.wooi.vibox.model.Status;
+import com.wooi.vibox.ui.LinkEnableTextView;
 import com.wooi.vibox.util.ImageLoaderOptionsUtil;
 import com.wooi.vibox.util.Parse;
 
@@ -66,7 +65,7 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
     }
 
     protected void setAllText(ViewHolder viewHolder, Status status) {
-        viewHolder.contentTv.setText(status.getText());
+        viewHolder.contentTv.gatherLinksForText(status.getText());
         viewHolder.timeTv.setText(status.getCreated_at());
         viewHolder.userTv.setText(status.getUser().getName());
         String device = Parse.parseXmlGetDevice(status.getSource());
@@ -88,7 +87,7 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
     private void setRetwettedContent(ViewHolder viewHolder, Status status) {
         if (status.getRetweeted_status() != null) {
             viewHolder.retweeted_content_ly.setVisibility(View.VISIBLE);
-            viewHolder.retweetedContentTv.setText("@" + status.getRetweeted_status().getUser().getName() + " : " + status.getRetweeted_status().getText());
+            viewHolder.retweetedContentTv.gatherLinksForText("@" + status.getRetweeted_status().getUser().getName() + " : " + status.getRetweeted_status().getText());
             viewHolder.retweetedCommentsRepostCount.setText(status.getRetweeted_status().getReposts_count() + "条转发 & " +
                     status.getRetweeted_status().getComments_count() + "条回复");
             setRetwettedImage(viewHolder, status);
@@ -151,11 +150,11 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
         @Bind(R.id.time_tv)
         TextView timeTv;
         @Bind(R.id.content_tv)
-        TextView contentTv;
+        LinkEnableTextView contentTv;
         @Bind(R.id.content_gv)
         GridView contentGv;
         @Bind(R.id.retweeted_content_tv)
-        TextView retweetedContentTv;
+        LinkEnableTextView retweetedContentTv;
         @Bind(R.id.retweeted_content_gv)
         GridView retweetedContentGv;
         @Bind(R.id.retweeted_comments_repost_count)

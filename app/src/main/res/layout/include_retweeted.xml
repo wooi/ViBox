@@ -9,11 +9,12 @@
     android:orientation="vertical"
     android:visibility="gone">
 
-    <TextView
+    <com.wooi.vibox.ui.LinkEnableTextView
         android:id="@+id/retweeted_content_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/user_ib"
+        android:textColorLink="@color/blue"
         android:textSize="@dimen/retweeted_content_textsize" />
 
 

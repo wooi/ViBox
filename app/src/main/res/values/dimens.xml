@@ -10,14 +10,17 @@
     <dimen name="framglayou_magin_right_left_single_content">5dp</dimen>
     <dimen name="zero">0dp</dimen>
 
-    <dimen name="user_imager_height">50dp</dimen>
-    <dimen name="user_imager_width">50dp</dimen>
+    <dimen name="user_imager_height">45dp</dimen>
+    <dimen name="user_imager_width">45dp</dimen>
     <dimen name="comment_count_textsize">11sp</dimen>
-    <dimen name="retweeted_comment_count_textsize">10sp</dimen>
+    <dimen name="retweeted_comment_count_textsize">12sp</dimen>
     <dimen name="conent_text_size">13sp</dimen>
     <dimen name="retweeted_content_textsize">10sp</dimen>
     <dimen name="nav_header_user_imager_size">80dp</dimen>
     <dimen name="nav_header_user_imager_maraginBottom">36dp</dimen>
     <dimen name="nav_header_height">192dp</dimen>
     <dimen name="circle_image_size" >50dp</dimen>
+    <dimen name="user_comment_imager_width">30dp</dimen>
+    <dimen name="user_comment_imager_height">30dp</dimen>
+    <dimen name="comment_text_size">12dp</dimen>
 </resources>
