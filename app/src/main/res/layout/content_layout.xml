@@ -23,7 +23,7 @@
             app:title="@string/hello_world">
 
             <LinearLayout
-                android:layout_width="60dp"
+                android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
@@ -41,6 +41,7 @@
                     android:layout_width="0dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/toolbar_iv_marginleft"
                     android:layout_weight="1"
                     android:background="@mipmap/comment" />
 
@@ -48,6 +49,7 @@
                     android:layout_width="0dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/toolbar_iv_marginleft"
                     android:layout_weight="1"
                     android:background="@mipmap/favorites" />
             </LinearLayout>

@@ -132,9 +132,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.follow:
                 startActivity(new Intent(MainActivity.this, Follow.class));
                 break;
-            case R.id.favorites:
-                startActivity(new Intent(MainActivity.this, TestActivity.class));
-                break;
+
         }
         return true;
     }

@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import com.wooi.vibox.fragment.CommentsByMeFragment;
 import com.wooi.vibox.fragment.ContentFragment;
 import com.wooi.vibox.fragment.FavoritesFragment;
+import com.wooi.vibox.fragment.TestFragment;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class ContentVPAdapter extends FragmentPagerAdapter {
             case COMMENTSFRAGMENT:
                 return CommentsByMeFragment.newInstance(1, "CommentPage");
             case FAVORITESFRAGMENT:
-                return FavoritesFragment.newInstance(2, "FavoritesPage");
+                return TestFragment.newInstance(2, "FavoritesPage");
         }
         return null;
     }

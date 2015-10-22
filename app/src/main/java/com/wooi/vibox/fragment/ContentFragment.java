@@ -1,16 +1,15 @@
 package com.wooi.vibox.fragment;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -19,6 +18,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.wooi.vibox.DataApplication;
 import com.wooi.vibox.R;
+import com.wooi.vibox.activity.ImageBrowserActivity;
 import com.wooi.vibox.activity.TweetContent;
 import com.wooi.vibox.activity.UserPage;
 import com.wooi.vibox.adapter.ContentRVAdapter;
@@ -36,23 +36,24 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 /**
  * Created by Administrator on 2015/9/16.
  */
 public class ContentFragment extends BaseFragment {
-//    @Bind(R.id.testbt)
+    //    @Bind(R.id.testbt)
 //    Button testbt;
     @Bind(R.id.content_rv)
     RecyclerView contentRv;
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Status> statusContentList;
     private String URL = Content.FRIEDNDURL;
     private final static String UID = DataApplication.getSingleton().getmUid();
 
-    public static ContentFragment newInstance(int page,String title){
+    public static ContentFragment newInstance(int page, String title) {
         ContentFragment contentFragment = new ContentFragment();
         return contentFragment;
     }
@@ -129,6 +130,14 @@ public class ContentFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
     protected class MyRvOnClickListener implements ContentRVAdapter.RvOnClickListner {
 
         @Override
@@ -145,6 +154,10 @@ public class ContentFragment extends BaseFragment {
         @Override
         public void gvItemClick(int itemPosition, int position) {
             Toast.makeText(mContext, itemPosition + "" + position, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(mContext, ImageBrowserActivity.class);
+            intent.putExtra("status", statusContentList.get(itemPosition));
+            intent.putExtra("position", position);
+            startActivity(intent);
 
         }
     }

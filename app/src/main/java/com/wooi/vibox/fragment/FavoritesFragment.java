@@ -1,5 +1,7 @@
 package com.wooi.vibox.fragment;
 
+import android.view.View;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -29,6 +31,7 @@ public class FavoritesFragment extends ContentFragment {
         FavoritesFragment favoritesFragment = new FavoritesFragment();
         return favoritesFragment;
     }
+
     @Override
     protected void initData() {
         getFavorites();
@@ -54,7 +57,7 @@ public class FavoritesFragment extends ContentFragment {
 
     @Override
     public void setViewAdapter(ArrayList<Status> statusList) {
-        super.setViewAdapter(statusList);
+//        super.setViewAdapter(statusList);
     }
 
     private void setViewAdpater(ArrayList<Favorites> arrayList){

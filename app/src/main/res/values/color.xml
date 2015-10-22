@@ -12,4 +12,10 @@
     <color name="weibo_content_text">#ff666666</color>
 
 
+    <!-- image_brower-->
+    <color name="txt_black">#232323</color>
+    <color name="white">#ffffff</color>
+    <color name="bg_agray">#49dddddd</color>
+    <color name="alpha_white">#49ffffff</color>
+    <color name="alpha_black">#49000000</color>
 </resources>

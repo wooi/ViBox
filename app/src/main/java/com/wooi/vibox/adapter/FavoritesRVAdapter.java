@@ -1,5 +1,7 @@
 package com.wooi.vibox.adapter;
+
 import android.content.Context;
+
 import com.wooi.vibox.model.Favorites;
 import com.wooi.vibox.model.Status;
 
@@ -20,10 +22,9 @@ public class FavoritesRVAdapter extends ContentRVAdapter {
     protected void setContent(ViewHolder viewHolder, int i) {
         Favorites favorite = favoriteArrayList.get(i);
         Status status = favorite.getStatus();
-        if(status.getDeleted()==null && status.getRetweeted_status().getDeleted()==null){
-            setAllText(viewHolder,status);
-            setContentImage(viewHolder, status);
-        }
+        setAllText(viewHolder, status);
+        setContentImage(viewHolder, status);
+
 
     }
 

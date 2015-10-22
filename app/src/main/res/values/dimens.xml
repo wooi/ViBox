@@ -23,4 +23,8 @@
     <dimen name="user_comment_imager_width">30dp</dimen>
     <dimen name="user_comment_imager_height">30dp</dimen>
     <dimen name="comment_text_size">12dp</dimen>
+    <dimen name="toolbar_iv_marginleft">10dp</dimen>
+
+    <dimen name="txtsize_headline">20sp</dimen>
+    <dimen name="txtsize_subhead">16dp</dimen>
 </resources>

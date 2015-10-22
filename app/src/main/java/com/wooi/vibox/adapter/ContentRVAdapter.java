@@ -1,6 +1,7 @@
 package com.wooi.vibox.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wooi.vibox.R;
+import com.wooi.vibox.activity.ImageBrowserActivity;
 import com.wooi.vibox.model.Status;
 import com.wooi.vibox.ui.LinkEnableTextView;
 import com.wooi.vibox.util.ImageLoaderOptionsUtil;
@@ -73,13 +75,14 @@ public class ContentRVAdapter extends RecyclerView.Adapter<ContentRVAdapter.View
         viewHolder.commentsRepostCount.setText(status.getReposts_count() + "条转发 & " + status.getComments_count() + "条回复");
     }
 
-    protected void setContentImage(ViewHolder viewHolder, Status status) {
+    protected void setContentImage(ViewHolder viewHolder, final Status status) {
         String url = status.getUser().getAvatar_large();
         ImageLoader.getInstance().displayImage(url, viewHolder.userIb, ImageLoaderOptionsUtil.getWholeOptions());
         if (status.getPic_urls() != null) {
             viewHolder.contentGv.setVisibility(View.VISIBLE);
             ImageGridAdapter imageGridAdapter = new ImageGridAdapter(context, status.getPic_urls());
             viewHolder.contentGv.setAdapter(imageGridAdapter);
+
         }
 
     }
